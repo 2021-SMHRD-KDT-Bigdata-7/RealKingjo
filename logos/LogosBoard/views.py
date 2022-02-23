@@ -12,6 +12,8 @@ from .models import TCriminal
 from .models import TCriminalSummary
 from .models import TLaw
 from django.shortcuts import render
+# 제발요
+
 
 # Create your views here.
 
