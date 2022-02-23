@@ -28,10 +28,12 @@ def Logos_Mk1 (a, b) :
     su=max(LawRating)
     print("가장 유사한 법조문 " , b[LawRating.index(su)])
 
+
 def Law_com():
     Summary= TCriminalSummary.object.all()
-    Law = TLaw.objects.all()
-
+    Law = TLaw.objects.filter(law_type=1)
+    Law['law_keyword'], Law['law_type']
+    return Law
     
 
 
@@ -41,6 +43,7 @@ def Law_com():
 
 model = Word2Vec.load("static/models/classifier6")
 stopword = stopwords.words('english')
+
 def Compare2 (LawInput) :
     #ByeonSu=wordtoken(LawInput)
     English=kr2en(LawInput)
@@ -76,17 +79,15 @@ def input(request):
     return render(request, 'LogosBoard/logos_Input.html', context)
 
 def list(request):
-    """
-    pybo 내용 출력
-    """
+    
+    
     context = request.POST.get('input')
     Summary = TCriminalSummary.objects.all()
-        
-    
-    brother=Compare2(context)
 
     
+    brother=Compare2(context)
     content ={"context":context,'brother':brother, "Summary":Summary[0:10]}
+    
     return render(request, 'LogosBoard/logos_List.html', content)
 
 

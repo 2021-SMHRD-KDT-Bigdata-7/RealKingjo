@@ -40,13 +40,14 @@
 
           <!-- 판례 시작-->
           {% for i in Summary %}
-          <div class="single-blog-area blog-style-2 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1000ms">
+          
+          <div class="single-blSummary %og-area blog-style-2 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1000ms">
             <div class="container">
               <div class="row justify-content-between">
                 <div>
                   
                   <span class="col-1 bg-danger text-white" style="font-weight:bold; border-radius: 2px">형사</span>
-                  <span class="m-0 h6">명예훼손(일부예비적죄명:모욕)·저작권법위반</span>
+                  <span class="m-0 h6">{{ i.cri_subj }}</span>
                 </div>
                 <div>
                   <a href="#" data-toggle="tooltip" data-placement="bottom" class="col align-self-end" title="{{ i.cri_sum_abst }}">주문</a>
