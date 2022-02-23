@@ -125,7 +125,7 @@ def question_delete(request, life_question_id):
         messages.error(request, '삭제권한이 없습니다')
         return redirect('MainBoard:lifedetail', life_question_id=life_question.id)
     life_question.delete()
-    return redirect('MainBoard:lifedetail')
+    return redirect('MainBoard:lifepost')
 
 
 @login_required(login_url='common:login')
