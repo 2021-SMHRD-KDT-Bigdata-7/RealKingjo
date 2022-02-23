@@ -52,12 +52,12 @@
           <div class="card-body">
             <p class="card-title m-0">닉네임</p>
             <h6 class="card-text">{{ user.last_name }}</h6>
-            <p class="card-title m-0">등급</p>
-            <h6 class="card-text">법의 달인</h6>
             <p class="card-title m-0">작성 글</p>
             <h6 class="card-text">{{question_list.count}}</h6>
             <p class="card-title m-0">작성 댓글</p>
             <h6 class="card-text">{{comment_list.count}}</h6>
+            <p class="card-title m-0">마지막 접속</p>
+            <h6 class="card-text">{{user.last_login}}</h6>
             <p class="card-title m-0">가입일자</p>
             <h6 class="card-text">{{user.date_joined}}</h6>
           </div>
@@ -82,13 +82,15 @@
         <div class="card border-light mb-3 col-12 col-sm-4">
           <div class="card-header text-center bg-white">사용자 등급</div>
           <div class="card-body">
-            {% if user.type = 1%}
+            {% if user.type%}
             <div class="col-12 text-center section-padding-50">
               <img src="{% static 'img/core-img/level1.png'%}" alt="" style="width: 128px;height: 128px;">
             </div>
             {% else %}
             <div class="col-12 text-center section-padding-50">
+              <h4>입문자<h4>
               <img src="{% static 'img/core-img/level1.png'%}" alt="" style="width: 128px;height: 128px;">
+
             </div>
             {% endif %}
           </div>
