@@ -1,9 +1,9 @@
 from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 
-from konlpy.tag import Komoran
+
 from nltk.corpus import stopwords
-import re
+
 import requests
 from nltk.corpus import stopwords  
 
@@ -11,15 +11,36 @@ from gensim.models.word2vec import Word2Vec
 from .models import TCriminal
 from .models import TCriminalSummary
 from .models import TLaw
+from .models import SYNONYM
 from django.shortcuts import render
-# 제발요
+
+
+
+
+
+def Logos_Mk1 (a, b) :
+  
+  
+    LawRating = []
+    for i in range(len(b)) :   
+        LawRating.append(Usado_Mk1(a,b[i]))
+    
+    su=max(LawRating)
+    print("가장 유사한 법조문 " , b[LawRating.index(su)])
+
+def Law_com():
+    Summary= TCriminalSummary.object.all()
+    Law = TLaw.objects.all()
+
+    
+
 
 
 # Create your views here.
 
 
 model = Word2Vec.load("static/models/classifier6")
-
+stopword = stopwords.words('english')
 def Compare2 (LawInput) :
     #ByeonSu=wordtoken(LawInput)
     English=kr2en(LawInput)
@@ -35,7 +56,7 @@ def Compare2 (LawInput) :
     result = []
     for word in Eng_list:
         word.lower()  
-        if word not in stopwords.words('english'):  
+        if word not in stopword:  
             result.append(word)  
     
     return result
@@ -59,7 +80,9 @@ def list(request):
     pybo 내용 출력
     """
     context = request.POST.get('input')
-    Summary = TCriminalSummary.objects.filter(cri_seq = 1)
+    Summary = TCriminalSummary.objects.filter(cri_seq=1)
+        
+    
     brother=Compare2(context)
 
     
@@ -84,12 +107,6 @@ def kr2en (Usertoken) :
 
 def Compare (UserInput, LawInput) :
   
-    LawInput=wordtoken(LawInput) 
-    UserInput=wordtoken(UserInput)
-    
-    if '논논논논논' in UserInput : 
-        UserInput.remove('논논논논논')
-        
     ks=kr2en(LawInput)
     kc=kr2en(UserInput)
 
@@ -119,7 +136,10 @@ def Compare (UserInput, LawInput) :
 
 
 def Usado_Mk1(a, b) :
-    
+    SYNONYM = SYNONYM.objects.all()
+    synR = []
+    for i in SYNONYM :
+        synR.append(i.syn_content)  
     a, b=Compare(a,b)
     List2 = []
     List3 = []
@@ -172,5 +192,7 @@ def Usado_Mk1(a, b) :
         print("아무것도, 없다니까요!")
     
     return Rating
+
+
 
 
