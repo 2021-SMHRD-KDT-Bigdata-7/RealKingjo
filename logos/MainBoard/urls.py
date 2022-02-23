@@ -21,6 +21,7 @@ urlpatterns = [
     path('dictionary', dictionary_view.index,name='dictionary'),
     path('status', status_view.index,name='status'),
     path('keyword', keyword_view.index,name='keyword'),
+    path('keyword/<word>', keyword_view.detail,name='keywordselect'),
     path('<int:life_question_id>/', lifepost_views.detail,name='lifedetail'),
     
     path('question/create/', lifepost_views.question_create, name='life_question_create'),

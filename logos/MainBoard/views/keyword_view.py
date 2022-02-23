@@ -21,6 +21,26 @@ def index(request):
     content = {"mainfile":keyfile[0],'keyfile':keyfile,'keyname':keyname,'keyword':keyword}
     return render(request, 'MainBoard/keyword_form.html',content)
 
+def detail(request,word):
+    keyword = request.GET.get("word")
+    keyword = word
+    if keyword is None :
+        keyword = "법전"
+    if keyword == '' :
+        keyword = "법전"
+    headfile = naversaerch(keyword)
+    keyname = []
+    keyfile = []
+    for i in headfile.get('items'):
+        i['title'] = re.sub('(<([^>]+)>)', '', i['title'])
+        i['description'] = re.sub('(<([^>]+)>)', '', i['description'])
+        keyname.append(i['title'])
+        keyfile.append(i)
+    
+    content = {"mainfile":keyfile[0],'keyfile':keyfile,'keyname':keyname,'keyword':keyword}
+    return render(request, 'MainBoard/keyword_form.html',content)
+
+
 
 
 
