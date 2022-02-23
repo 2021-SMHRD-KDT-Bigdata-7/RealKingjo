@@ -28,62 +28,12 @@
       <!--con-->
 
       <div class="row mt-3">
-        <!--3칸 시작 -->
-        <div class="col-lg-3 col-12">
-          <div class="row">
-            <div class="col-12 ">
-              <div class="card mb-15">
-                <div class="card-body">
-                  <h4 class="card-title">월 방문자 수</h4>
-                  <p>23% increase in conversion</p>
-                  <h4 class="text-dark font-weight-bold mb-2">43,981</h4>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card mb-15">
-                <div class="card-body">
-                  <h4 class="card-title">월 검색 량</h4>
-                  <p>6% decrease in earnings</p>
-                  <h4 class="text-dark font-weight-bold mb-2">55,543</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--3칸 끝 -->
-        <!--9칸 시작-->
-        <div class="col-lg-9 col-12">
-          <div class="card mb-15">
-            <div class="card-body">
-              <h4 class="card-title">검색량 차트</h4>
-              <div class="row">
-                <div class="col-lg-5">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit amet cumque cupiditate
-                  </p>
-                </div>
-                <div class="col-lg-7">
-                  <div class="chart-legends d-lg-block d-none" id="chart-legends"></div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12">
-                  <div id="chartdiv" style=" width: 100%;height: 500px;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--9칸 끝-->
-      </div>
-
-      <div class="row mt-3">
 
         <!--4칸 시작-->
         <div class="col-lg-3 col-12">
           <div class="card mb-15">
             <div class="card-body">
-              <h4 class="card-title">핵심 키워드</h4>
+              <h4 class="card-title">키워드 검색량</h4>
               <div class="row">
 
                 <table class="col-12 mt-15 table-sm">
@@ -143,12 +93,12 @@
                     <td class="d-none d-sm-block">아르바이트 , 야간 , 근무 , 보너스 , 지급</td>
                   </tr>
                   <tr>
-                    <td>아르바이트로 야간근무를 6시간 도와주었는데 야간보너스를 지급하지 않습니다.</td>
-                    <td class="d-none d-sm-block">아르바이트 , 야간 , 근무 , 보너스 , 지급</td>
+                    <td>동생집에 말없이 들어간 것이 무단침입죄에 해당되나요?</td>
+                    <td class="d-none d-sm-block">무단침입 , 집 , 동생집, 말없이, 들어간</td>
                   </tr>
                   <tr>
-                    <td>아르바이트로 야간근무를 6시간 도와주었는데 야간보너스를 지급하지 않습니다.</td>
-                    <td class="d-none d-sm-block">아르바이트 , 야간 , 근무 , 보너스 , 지급</td>
+                    <td>일을 적게했다고 지정된 월급보다 적은돈을 받는게 가능한 가요?</td>
+                    <td class="d-none d-sm-block">월급 , 지정된 , 일 , 적게 , 가능</td>
                   </tr>
                 </tbody>
               </table>
@@ -159,6 +109,58 @@
         <!--8칸 끝-->
 
       </div>
+
+      <div class="row mt-3">
+        <!--3칸 시작 -->
+        <div class="col-lg-3 col-12">
+          <div class="row">
+            <div class="col-12 ">
+              <div class="card mb-15">
+                <div class="card-body">
+                  <h4 class="card-title">월 방문자 수</h4>
+                  <p>지날 달 대비 23% 증가</p>
+                  <h4 class="text-dark font-weight-bold mb-2">23,981</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card mb-15">
+                <div class="card-body">
+                  <h4 class="card-title">월 검색 량</h4>
+                  <p>지난달 대비 6% 증가 </p>
+                  <h4 class="text-dark font-weight-bold mb-2">55,543</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--3칸 끝 -->
+        <!--9칸 시작-->
+        <div class="col-lg-9 col-12">
+          <div class="card mb-15">
+            <div class="card-body">
+              <h4 class="card-title">검색량 차트</h4>
+              <div class="row">
+                <div class="col-lg-5">
+                  <p>일별 방문자 수와 검색량의 값
+                  </p>
+                </div>
+                <div class="col-lg-7">
+                  <div class="chart-legends d-lg-block d-none" id="chart-legends"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div id="chartdiv" style=" width: 100%;height: 500px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--9칸 끝-->
+      </div>
+
+      
 
       <div class="row mt-3">
 
@@ -265,23 +267,23 @@
 
       var data = [
         {
-          year: "2016",
+          day: "2022-02-20",
           income: 23.5,
           expenses: 21.1
         }, {
-          year: "2017",
+          day: "2022-02-21",
           income: 26.2,
           expenses: 30.5
         }, {
-          year: "2018",
+          day: "2022-02-22",
           income: 30.1,
           expenses: 34.9
         }, {
-          year: "2019",
+          day: "2022-02-23",
           income: 29.5,
           expenses: 31.1
         }, {
-          year: "2020",
+          day: "2022-02-24",
           income: 30.6,
           expenses: 28.2,
           strokeSettings: {
@@ -292,7 +294,7 @@
             strokeDasharray: [5, 5]
           }
         }, {
-          year: "2021",
+          day: "2022-02-25",
           income: 34.1,
           expenses: 32.9,
           columnSettings: {
@@ -309,7 +311,7 @@
       var xAxis = chart
         .xAxes
         .push(am5xy.CategoryAxis.new(root, {
-          categoryField: "year",
+          categoryField: "day",
           renderer: am5xy
             .AxisRendererX
             .new(root, {}),
@@ -338,11 +340,11 @@
       var series1 = chart
         .series
         .push(am5xy.ColumnSeries.new(root, {
-          name: "Income",
+          name: "일일 방문자 수",
           xAxis: xAxis,
           yAxis: yAxis,
           valueYField: "income",
-          categoryXField: "year",
+          categoryXField: "day",
           tooltip: am5
             .Tooltip
             .new(root, {
@@ -363,11 +365,11 @@
       var series2 = chart
         .series
         .push(am5xy.LineSeries.new(root, {
-          name: "Expenses",
+          name: "일일 검색량",
           xAxis: xAxis,
           yAxis: yAxis,
           valueYField: "expenses",
-          categoryXField: "year",
+          categoryXField: "day",
           tooltip: am5
             .Tooltip
             .new(root, {

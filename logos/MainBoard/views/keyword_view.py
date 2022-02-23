@@ -6,7 +6,7 @@ import re
 def index(request):
    
     keyword = request.GET.get("word")
-    if keyword=="" :
+    if keyword is None :
         keyword = "살인"
     headfile = naversaerch(keyword)
     keyfile = []

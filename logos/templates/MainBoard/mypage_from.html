@@ -80,14 +80,17 @@
 
         <!-- Single Blog Area -->
         <div class="card border-light mb-3 col-12 col-sm-4">
-          <div class="card-header text-center bg-white">사용자 정보</div>
+          <div class="card-header text-center bg-white">사용자 등급</div>
           <div class="card-body">
-            <p class="card-title m-0">닉네임</p>
-            <h6 class="card-text">두부가격</h6>
-            <p class="card-title m-0">등급</p>
-            <h6 class="card-text">법의 달인</h6>
-            <p class="card-title m-0">가입일자</p>
-            <h6 class="card-text">2022년 02월 14일</h6>
+            {% if user.type = 1%}
+            <div class="col-12 text-center section-padding-50">
+              <img src="{% static 'img/core-img/level1.png'%}" alt="" style="width: 128px;height: 128px;">
+            </div>
+            {% else %}
+            <div class="col-12 text-center section-padding-50">
+              <img src="{% static 'img/core-img/level1.png'%}" alt="" style="width: 128px;height: 128px;">
+            </div>
+            {% endif %}
           </div>
         </div>
 
@@ -119,22 +122,16 @@
                   </tr>
                 </thead>
                 <tr>
-                  <th class="d-none d-sm-block" scope="row">3</th>
-                  <td>아르바이트로 야간근무를 6시간 도와주었는데 야간보너스를 지급하지 않습니다.</td>
+                  <td >아르바이트로 야간근무를 6시간 도와주었는데 야간보너스를 지급하지 않습니다.</td>
                   <td class="d-none d-sm-block">아르바이트 , 야간 , 근무 , 보너스 , 지급</td>
-                  <td>2022-02-13</td>
                 </tr>
                 <tr>
-                  <th class="d-none d-sm-block" scope="row">2</th>
-                  <td>아르바이트로 야간근무를 6시간 도와주었는데 야간보너스를 지급하지 않습니다.</td>
-                  <td class="d-none d-sm-block">아르바이트 , 야간 , 근무 , 보너스 , 지급</td>
-                  <td>2022-02-13</td>
+                  <td>동생집에 말없이 들어간 것이 무단침입죄에 해당되나요?</td>
+                  <td class="d-none d-sm-block">무단침입 , 집 , 동생집, 말없이, 들어간</td>
                 </tr>
                 <tr>
-                  <th class="d-none d-sm-block" scope="row">1</th>
-                  <td>아르바이트로 야간근무를 6시간 도와주었는데 야간보너스를 지급하지 않습니다.</td>
-                  <td class="d-none d-sm-block">아르바이트 , 야간 , 근무 , 보너스 , 지급</td>
-                  <td>2022-02-13</td>
+                  <td>일을 적게했다고 지정된 월급보다 적은돈을 받는게 가능한 가요?</td>
+                  <td class="d-none d-sm-block">월급 , 지정된 , 일 , 적게 , 가능</td>
                 </tr>
               </tbody>
             </table>
