@@ -14,7 +14,7 @@
       <div class="row h-100 align-items-center">
         <div class="col-12">
           <div class="breadcumb-content text-center">
-            <h2>{{mainfile.title}}</h2>
+            <h2 >{{mainfile.title}}</h2>
           </div>
         </div>
       </div>
@@ -122,8 +122,11 @@
   <script>
     am5.ready(function () {
 
-      let filelist = "{{keyfile}}".replace(/&#x27;/g, "\"");
-      var placeData = JSON.parse(filelist);
+      let onelist = "{{keyname}}".replace('[', "");
+      let twolist = onelist.replace(/&#x27;/g, "\"");
+      let placeData = twolist.split(",");
+      document.getElementById("result").innerText = placeData
+
 
       // Create root element
       // https://www.amcharts.com/docs/v5/getting-started/#Root_element
@@ -166,30 +169,26 @@
       // https://www.amcharts.com/docs/v5/charts/hierarchy/#Setting_data
 
       var data = {
-        name: placeData[0]['title'],
+        name: placeData[0],
         children: []
       }
       generateLevel(data, name, 0);
-      series
-        .data
-        .setAll([data]);
-      series.set("selectedDataItem", series.dataItems[0]);
-
+      
       function generateLevel(data, name, level) {
         for (var i = 0; i < placeData.length; i++) {
-          var nodeName = placeData[i];
           var child;
           child = {
-            name: placeData[i]['title'],
+            name: placeData[i],
             value: placeData.length - i
           }
-          data
-            .children
-            .push(child);
+          data.children.push(child);
         }
-        level++;
         return data;
       }
+
+      series.data.setAll([data]);
+      series.set("selectedDataItem", series.dataItems[0]);
+
       // Make stuff animate on load
       series.appear(1000, 100);
     }); // end am5.ready()

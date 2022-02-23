@@ -80,13 +80,13 @@ def list(request):
     pybo 내용 출력
     """
     context = request.POST.get('input')
-    Summary = TCriminalSummary.objects.filter(cri_seq=1)
+    Summary = TCriminalSummary.objects.all()
         
     
     brother=Compare2(context)
 
     
-    content ={"context":context,'brother':brother, "Summary":Summary}
+    content ={"context":context,'brother':brother, "Summary":Summary[0:10]}
     return render(request, 'LogosBoard/logos_List.html', content)
 
 

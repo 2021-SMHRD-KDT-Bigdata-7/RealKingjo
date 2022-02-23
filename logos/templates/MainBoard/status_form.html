@@ -5,6 +5,7 @@
 
   <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/hierarchy.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 
@@ -23,7 +24,7 @@
   <!-- ##### Breadcumb Area End ##### -->
 
   <!-- ##### Blog Wrapper Start ##### -->
-  <div class="blog-wrapper clearfix" style="padding: 100px 0 100px 0;">
+  <div class="blog-wrapper clearfix" style="padding: 50px 0 50px 0;">
     <div class="container">
       <!--con-->
 
@@ -168,8 +169,8 @@
         <div class="col-lg-4 col-12">
           <div class="card mb-15">
             <div class="card-body">
-              <h4 class="card-title">개쩌는 정보</h4>
-              <div class="row">
+              <h4 class="card-title">등급 분포도</h4>
+              <div id="Rate" style="height:200px">
                 
               </div>
             </div>
@@ -178,45 +179,28 @@
         <!--4칸 끝-->
 
         
-        <!--4칸 시작-->
-        <div class="col-lg-4 col-12">
-          <div class="card mb-15">
-            <div class="card-body">
-              <h4 class="card-title">오금저리는 충격</h4>
-              <div class="row">
-                
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--4칸 끝-->
+
 
         
         <!--4칸 시작-->
         <div class="col-lg-4 col-12">
           <div class="card mb-15">
             <div class="card-body">
-              <h4 class="card-title">행-복</h4>
-              <div class="row">
+              <h4 class="card-title">남여 성비</h4>
+              <div id="gender" style="height:200px">
                 
               </div>
             </div>
           </div>
         </div>
         <!--4칸 끝-->
-
-
-
-      </div>
-
-      <div class="row mt-3">
-
+        
         <!--4칸 시작-->
-        <div class=" col-12">
+        <div class="col-lg-4 col-12">
           <div class="card mb-15">
             <div class="card-body">
-              <h4 class="card-title">개쩌는 정보</h4>
-              <div class="row">
+              <h4 class="card-title">이용자 나이</h4>
+              <div id="ages" style="height:200px">
                 
               </div>
             </div>
@@ -225,8 +209,8 @@
         <!--4칸 끝-->
 
 
-
       </div>
+
 
       <!--con-->
     </div>
@@ -428,5 +412,194 @@
     }); // end am5.ready()
   </script>
   <!--방문자 + 검색량 끝 -->
+
+
+  <script>
+
+
+
+    am5.ready(function() {
+    
+    // Create root element
+    // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new("gender");
+    
+    
+    // Set themes
+    // https://www.amcharts.com/docs/v5/concepts/themes/
+    root.setThemes([
+      am5themes_Animated.new(root)
+    ]);
+    
+    
+    // Create chart
+    // https://www.amcharts.com/docs/v5/charts/percent-charts/sliced-chart/
+    var chart = root.container.children.push(am5percent.SlicedChart.new(root, {
+      layout: root.verticalLayout
+    }));
+    
+    
+    // Create series
+    // https://www.amcharts.com/docs/v5/charts/percent-charts/sliced-chart/#Series
+    var series = chart.series.push(am5percent.PictorialStackedSeries.new(root, {
+      alignLabels: true,
+      orientation: "vertical",
+      valueField: "value",
+      categoryField: "category",
+      svgPath: "M53.5,476c0,14,6.833,21,20.5,21s20.5-7,20.5-21V287h21v189c0,14,6.834,21,20.5,21 c13.667,0,20.5-7,20.5-21V154h10v116c0,7.334,2.5,12.667,7.5,16s10.167,3.333,15.5,0s8-8.667,8-16V145c0-13.334-4.5-23.667-13.5-31 s-21.5-11-37.5-11h-82c-15.333,0-27.833,3.333-37.5,10s-14.5,17-14.5,31v133c0,6,2.667,10.333,8,13s10.5,2.667,15.5,0s7.5-7,7.5-13 V154h10V476 M61.5,42.5c0,11.667,4.167,21.667,12.5,30S92.333,85,104,85s21.667-4.167,30-12.5S146.5,54,146.5,42 c0-11.335-4.167-21.168-12.5-29.5C125.667,4.167,115.667,0,104,0S82.333,4.167,74,12.5S61.5,30.833,61.5,42.5z"
+    }));
+    
+    series.labelsContainer.set("width", 100);
+    series.ticks.template.set("location", 0.6);
+    
+    
+    // Set data
+    // https://www.amcharts.com/docs/v5/charts/percent-charts/sliced-chart/#Setting_data
+    series.data.setAll([
+      { value: 10, category: "Men" },
+      { value: 9, category: "Women" }
+    ]);
+    
+    
+    // Play initial series animation
+    // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
+    chart.appear(1000, 100);
+    
+    }); // end am5.ready()
+  </script>
+
+  <script>
+    am5.ready(function() {
+    
+    // Create root element
+    // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new("Rate");
+    
+    // Set themes
+    // https://www.amcharts.com/docs/v5/concepts/themes/
+    root.setThemes([
+      am5themes_Animated.new(root)
+    ]);
+    
+    // Create chart
+    // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+    var chart = root.container.children.push(
+      am5percent.PieChart.new(root, {
+        endAngle: 270
+      })
+    );
+    
+    // Create series
+    // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+    var series = chart.series.push(
+      am5percent.PieSeries.new(root, {
+        valueField: "value",
+        categoryField: "category",
+        endAngle: 270
+      })
+    );
+
+    
+    series.states.create("hidden", {
+      endAngle: -90
+    });
+    
+    // Set data
+    // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+    series.data.setAll([{
+      category: "일문",
+      value: 501
+    }, {
+      category: "일항",
+      value: 301
+    }, {
+      category: "일조",
+      value: 201
+    }, {
+      category: "일총",
+      value: 165
+    }, {
+      category: "일법",
+      value: 139
+    }
+  ]);
+
+  series.labels.template.setAll({
+    text: "{category}",
+    textType: "radial",
+    centerX: am5.percent(100)
+  });
+    
+    series.appear(1000, 100);
+    
+    }); // end am5.ready()
+    </script>
+
+    <script>
+      am5.ready(function() {
+      
+      // Create root element
+      // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+      var root = am5.Root.new("ages");
+      
+      // Set themes
+      // https://www.amcharts.com/docs/v5/concepts/themes/
+      root.setThemes([
+        am5themes_Animated.new(root)
+      ]);
+      
+      // Create chart
+      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+      var chart = root.container.children.push(
+        am5percent.PieChart.new(root, {
+          endAngle: 270
+        })
+      );
+      
+      // Create series
+      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+      var series = chart.series.push(
+        am5percent.PieSeries.new(root, {
+          valueField: "value",
+          categoryField: "category",
+          endAngle: 270
+        })
+      );
+  
+      
+      series.states.create("hidden", {
+        endAngle: -90
+      });
+      
+      // Set data
+      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+      series.data.setAll([{
+        category: "10대",
+        value: 501
+      }, {
+        category: "20대",
+        value: 301
+      }, {
+        category: "30대",
+        value: 201
+      }, {
+        category: "40대",
+        value: 165
+      }, {
+        category: "50대",
+        value: 139
+      }
+    ]);
+  
+    series.labels.template.setAll({
+      text: "{category}",
+      textType: "radial",
+      centerX: am5.percent(100)
+    });
+      
+      series.appear(1000, 100);
+      
+      }); // end am5.ready()
+      </script>
 
 {% endblock %}

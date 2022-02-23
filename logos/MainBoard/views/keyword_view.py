@@ -4,18 +4,19 @@ import json
 import re
 
 def index(request):
-   
     keyword = request.GET.get("word")
     if keyword is None :
         keyword = "살인"
     headfile = naversaerch(keyword)
+    keyname = []
     keyfile = []
     for i in headfile.get('items'):
         i['title'] = re.sub('(<([^>]+)>)', '', i['title'])
         i['description'] = re.sub('(<([^>]+)>)', '', i['description'])
+        keyname.append(i['title'])
         keyfile.append(i)
     
-    content = {"mainfile":keyfile[0],'keyfile':keyfile}
+    content = {"mainfile":keyfile[0],'keyfile':keyfile,'keyname':keyname}
     return render(request, 'MainBoard/keyword_form.html',content)
 
 
