@@ -48,7 +48,9 @@
                   </a>
                 </div>
                 <a href="{% url 'MainBoard:lifedetail' top_question.id %}">
-                  <p>{{top_question.content}}</p>
+                  <div style="max-height:140px;overflow-y:hidden;">
+                    {{top_question.content}}
+                  </div>
                 </a>
               </div>
             </div>
@@ -88,7 +90,8 @@
                         <img src="{% static 'img/bg-img/bg4.jpg' %}" alt="">
                       {% endif %}
                       <div class="post-date">
-                        <a href="{% url 'MainBoard:lifedetail' life_question.id %}">{{life_question.id}}
+                        <a href="{% url 'MainBoard:lifedetail' life_question.id %}">
+                          {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
                           <span>번호</span></a>
                       </div>
                     </div>
@@ -100,8 +103,9 @@
                       <a href="#" class="post-tag">생활 법률 포스트</a>
                       <a href="{% url 'MainBoard:lifedetail' life_question.id %}" class="post-headline">
                         <h4>{{life_question.subject}}</h4>
-                        <p>{{life_question.content}}</p>
-
+                        <div style="max-height:140px;overflow-y:hidden;">
+                          {{life_question.content}}
+                        </div>
                         <div class="post-meta">
                           <p>작성자
                             <a href="#">{{ life_question.author.username }}</a>
@@ -223,14 +227,14 @@
                 <h5 class="title">Tags</h5>
                 <div class="widget-content">
                     <ul class="tags">
-                        <li><a href="#">design</a></li>
-                        <li><a href="#">fashion</a></li>
-                        <li><a href="#">travel</a></li>
-                        <li><a href="#">music</a></li>
-                        <li><a href="#">party</a></li>
-                        <li><a href="#">video</a></li>
-                        <li><a href="#">photography</a></li>
-                        <li><a href="#">adventure</a></li>
+                        <li><a href="{% url 'MainBoard:keywordselect' '뺑소니' %}">뺑소니</a></li>
+                        <li><a href="{% url 'MainBoard:keywordselect' '임대차' %}">임대차</a></li>
+                        <li><a href="{% url 'MainBoard:keywordselect' '산재보험' %}">산재보험</a></li>
+                        <li><a href="{% url 'MainBoard:keywordselect' '음주운전' %}">음주운전</a></li>
+                        <li><a href="{% url 'MainBoard:keywordselect' '임금' %}">임금</a></li>
+                        <li><a href="{% url 'MainBoard:keywordselect' '사기' %}">사기</a></li>
+                        <li><a href="{% url 'MainBoard:keywordselect' '자살' %}">자살</a></li>
+                        <li><a href="{% url 'MainBoard:keywordselect' '폭행' %}">폭행</a></li>
                     </ul>
                 </div>
             </div>              

@@ -121,11 +121,16 @@
 </div>
 </div>
 </div>
-<form id="searchForm" method="get" action="{% url 'FreeBoard:index' %}">
+{% if category.name == 'free'%}
+<form id="searchForm" method="get" action="{% url 'FreeBoard:free'%}">
+{% else %}
+<form id="searchForm" method="get" action="{% url 'FreeBoard:qna'%}">
+{% endif %}
     <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
     <input type="hidden" id="page" name="page" value="{{ page }}">
     <input type="hidden" id="so" name="so" value="{{ so }}">
 </form>
+
 {% endblock %}
 
 {% block script %}
@@ -147,6 +152,7 @@ $(document).ready(function(){
         $("#page").val(1);
         $("#searchForm").submit();
     });
+    
 });
 </script>
 {% endblock %}

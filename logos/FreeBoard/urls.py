@@ -10,6 +10,7 @@ app_name = 'FreeBoard'
 urlpatterns = [
     # base_views.py
     path('question/list/', base_views.index, name='index'),
+    path('question/list/<str:category_name>/', base_views.index, name='index'),
     path('question/list/free', base_views.index, name='free'),
     path('question/list/qna', base_views.qnalist, name='qna'),
     path('question/detail/<int:question_id>/', base_views.detail, name='detail'),
@@ -50,5 +51,6 @@ urlpatterns = [
     
      # question_views.py
     path('question/craete/<str:category_name>/', question_views.question_create, name='question_create'),
+    
     
 ]

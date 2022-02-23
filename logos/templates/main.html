@@ -86,7 +86,7 @@
                 <div class="top-social-area">
                     {% if user.is_authenticated %}
                       <div class="row justify-content-end">
-                        <div style="margin:5px 12px 0 12px">{{ user.username }}님 환영합니다</div>
+                        <div style="margin:5px 12px 0 12px">{{ user.last_name }}님 환영합니다</div>
                         <div style="margin:0 12px 0 12px"> <a class="btn btn-dark btn-sm " href="{% url 'MainBoard:mypage' %}" style="color:white">마이페이지</a></div> 
                         <div style="margin:0 12px 0 12px"> <a class="btn btn-dark btn-sm " href="{% url 'common:logout' %}" style="color:white">로그아웃</a></div> 
                       </div>

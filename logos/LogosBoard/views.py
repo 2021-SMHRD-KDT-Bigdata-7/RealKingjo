@@ -84,12 +84,20 @@ def list(request):
     
     context = request.POST.get('input')
     Summary = TCriminalSummary.objects.all()
+<<<<<<< HEAD
     for i in Summary:
         i['cri_subj']=i['cri_subj'].replace("<br>","")
+=======
+        
+>>>>>>> 8c378ced78e9fbb016090aa8d6307c85b6d2dbcd
     
     brother=Compare2(context)
     content ={"context":context,'brother':brother, "Summary":Summary[0:10]}
     
+<<<<<<< HEAD
+=======
+    content ={"context":context,'brother':brother, "Summary":Summary[0:10]}
+>>>>>>> 8c378ced78e9fbb016090aa8d6307c85b6d2dbcd
     return render(request, 'LogosBoard/logos_List.html', content)
 
 
