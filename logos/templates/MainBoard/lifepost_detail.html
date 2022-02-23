@@ -137,8 +137,8 @@
 
                     <!-- Post Content -->
                     <div class="post-content">
-                        <a href="{% url 'FreeBoard:qna' %}" class="post-tag">생활법률</a><br>
-                        <a href="{% url 'FreeBoard:detail' side_question.id %}" ><div style="max-height:42px; overflow:hidden;">{{side_question.subject}}</div></a>
+                        <a href="{% url 'MainBoard:lifepost' %}" class="post-tag">생활법률</a><br>
+                        <a href="{% url 'MainBoard:lifedetail' life_question.id %}" ><div style="max-height:42px; overflow:hidden;">{{side_question.subject}}</div></a>
                           <p class="text-danger small " >응답
                             {{ side_question.comment_set.count }}</p>
                     </div>
