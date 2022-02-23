@@ -23,11 +23,11 @@
   <div class="blog-wrapper section-padding-50 clearfix">
     
     <div class="container">
-      <div class="row align-items-center section-padding-100">
+      <div class="row align-items-center section-padding-30">
         <div class="col-lg-2 col-1"></div>
         <div class="col-lg-8 col-10 ">
           <div class="input-group mb-3">
-            <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}" placeholder="법률용어 검색하기" aria-label="sc" aria-describedby="basic-addon2" >
+            <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}" placeholder="법률용어 검색하기" aria-label="sc" aria-describedby="basic-addon2" style="font-size:30px;">
             <div class="input-group-append">
               
               <button class="btn btn-secondary" type="button" id="btn_search" >검색하기</button>
@@ -39,7 +39,7 @@
   </div>
     </div>
   
-    <hr>
+    <hr class="mt-0">
 
     <div class="container">
       <div class="row align-items-top">
@@ -67,7 +67,7 @@
               {% endfor %}
           </tbody>
         </table>
-       
+       <div class="col-12">
      <!-- 페이징처리 시작 -->
     <ul class="pagination justify-content-center">
       <!-- 이전페이지 -->
@@ -105,14 +105,11 @@
       </li>
       {% endif %}
   </ul>
-  <!-- 페이징처리 끝 -->
-  <form id="searchForm" method="get" action="{% url "MainBoard:dictionary" %}">
-    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
-    <input type="hidden" id="page" name="page" value="{{ page }}">
-    
-</form>
+</div>
+
     </div>
     <hr>
+  </div>
   {% endblock %}
   {% block script %}
 
