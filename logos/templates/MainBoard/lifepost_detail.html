@@ -126,8 +126,8 @@
                   <div class="single-blog-post d-flex align-items-center widget-post  border-bottom">
 
                   <div class="post-thumbnail">
-                    {% if life_question.photo_set.count > 0 %}
-                    {% for photo in life_question.photo_set.all%}
+                    {% if side_question.photo_set.count > 0 %}
+                    {% for photo in side_question.photo_set.all%}
                     <img src="{{photo.image.url}}"><br>
                     {% endfor %}
                     {% else %}
@@ -138,7 +138,7 @@
                     <!-- Post Content -->
                     <div class="post-content">
                         <a href="{% url 'MainBoard:lifepost' %}" class="post-tag">생활법률</a><br>
-                        <a href="{% url 'MainBoard:lifedetail' life_question.id %}" ><div style="max-height:42px; overflow:hidden;">{{side_question.subject}}</div></a>
+                        <a href="{% url 'MainBoard:lifedetail' side_question.id %}" ><div style="max-height:42px; overflow:hidden;">{{side_question.subject}}</div></a>
                           <p class="text-danger small " >응답
                             {{ side_question.comment_set.count }}</p>
                     </div>
