@@ -6,7 +6,9 @@ import re
 def index(request):
     keyword = request.GET.get("word")
     if keyword is None :
-        keyword = "살인"
+        keyword = "법전"
+    if keyword == '' :
+        keyword = "법전"
     headfile = naversaerch(keyword)
     keyname = []
     keyfile = []
@@ -16,7 +18,7 @@ def index(request):
         keyname.append(i['title'])
         keyfile.append(i)
     
-    content = {"mainfile":keyfile[0],'keyfile':keyfile,'keyname':keyname}
+    content = {"mainfile":keyfile[0],'keyfile':keyfile,'keyname':keyname,'keyword':keyword}
     return render(request, 'MainBoard/keyword_form.html',content)
 
 

@@ -14,7 +14,7 @@
       <div class="row h-100 align-items-center">
         <div class="col-12">
           <div class="breadcumb-content text-center">
-            <h2 >{{mainfile.title}}</h2>
+            <h2 >{{keyword}}</h2>
           </div>
         </div>
       </div>
@@ -105,6 +105,7 @@
             </div>
           </div>
 
+
       </div>
 
       <!--con-->
@@ -125,7 +126,7 @@
       let onelist = "{{keyname}}".replace('[', "");
       let twolist = onelist.replace(/&#x27;/g, "\"");
       let placeData = twolist.split(",");
-      document.getElementById("result").innerText = placeData
+
 
 
       // Create root element
