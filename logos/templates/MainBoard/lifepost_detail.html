@@ -112,110 +112,46 @@
           </div>
         </div>
 
-        <!-- ##### Sidebar Area ##### -->
-        <div class="col-12 col-md-4 col-lg-3 border-right border-left" style="margin-top: 68px ;border-width:3px">
-          <div class="post-sidebar-area" style="margin:">
+        <div class="col-12 col-md-4 col-lg-3">
+          <div class="post-sidebar-area" style="margin-top:110px">
 
             <!-- Widget Area -->
-            <div class="sidebar-widget-area">
-              <form action="#" class="search-form">
-                <input type="search" name="search" id="searchForm" placeholder="검색">
-                <input type="submit" value="submit">
-              </form>
-            </div>
+            <div class="sidebar-widget-area ">
 
-            <!-- Widget Area -->
-            <div class="sidebar-widget-area">
-              <h5 class="title">최근 게시글</h5>
+              <h5 class="mb-10">최신 게시글</h5>
+              <div class="widget-content col-12">
 
-              <div class="widget-content">
+                {% for side_question in side_question_list %}
+                  <!-- Single Blog Post -->
+                  <div class="single-blog-post d-flex align-items-center widget-post  border-bottom">
 
-                <!-- Single Blog Post -->
-                <div class="single-blog-post d-flex align-items-center widget-post">
-                  <!-- Post Thumbnail -->
                   <div class="post-thumbnail">
-                    <img src="{% static 'img/blog-img/lp1.jpg'%}" alt="">
+                    {% if life_question.photo_set.count > 0 %}
+                    {% for photo in life_question.photo_set.all%}
+                    <img src="{{photo.image.url}}"><br>
+                    {% endfor %}
+                    {% else %}
+                    <img src="{% static 'img/bg-img/bg4.jpg' %}" alt="">
+                    {% endif %}
                   </div>
-                  <!-- Post Content -->
-                  <div class="post-content">
-                    <a href="#" class="post-tag">자유게시판</a>
-                    <h4>
-                      <a href="#" class="post-headline">아름다운 파티 계획</a>
-                    </h4>
-                    <div class="post-meta">
-                      <p>
-                        <a href="#">8 March</a>
-                      </p>
+
+                    <!-- Post Content -->
+                    <div class="post-content">
+                        <a href="{% url 'FreeBoard:qna' %}" class="post-tag">생활법률</a><br>
+                        <a href="{% url 'FreeBoard:detail' side_question.id %}" ><div style="max-height:42px; overflow:hidden;">{{side_question.subject}}</div></a>
+                          <p class="text-danger small " >응답
+                            {{ side_question.comment_set.count }}</p>
                     </div>
                   </div>
+                {% endfor %}
                 </div>
 
-                <!-- Single Blog Post -->
-                <div class="single-blog-post d-flex align-items-center widget-post">
-                  <!-- Post Thumbnail -->
-                  <div class="post-thumbnail">
-                    <img src="{% static 'img/blog-img/lp2.jpg'%}" alt="">
-                  </div>
-                  <!-- Post Content -->
-                  <div class="post-content">
-                    <a href="#" class="post-tag">질문게시판</a>
-                    <h4>
-                      <a href="#" class="post-headline">교통사고 블랙박스 효능</a>
-                    </h4>
-                    <div class="post-meta">
-                      <p>
-                        <a href="#">6 March</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Single Blog Post -->
-                <div class="single-blog-post d-flex align-items-center widget-post">
-                  <!-- Post Thumbnail -->
-                  <div class="post-thumbnail">
-                    <img src="{% static 'img/blog-img/lp3.jpg'%}" alt="">
-                  </div>
-                  <!-- Post Content -->
-                  <div class="post-content">
-                    <a href="#" class="post-tag">질문게시판</a>
-                    <h4>
-                      <a href="#" class="post-headline">미성년자 보호법 적용범위</a>
-                    </h4>
-                    <div class="post-meta">
-                      <p>
-                        <a href="#">10 March</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Single Blog Post -->
-                <div class="single-blog-post d-flex align-items-center widget-post">
-                  <!-- Post Thumbnail -->
-                  <div class="post-thumbnail">
-                    <img src="{% static 'img/blog-img/lp4.jpg'%}" alt="">
-                  </div>
-                  <!-- Post Content -->
-                  <div class="post-content">
-                    <a href="#" class="post-tag">자유게시판</a>
-                    <h4>
-                      <a href="#" class="post-headline">여행가기 좋은곳 나열해준다.</a>
-                    </h4>
-                    <div class="post-meta">
-                      <p>
-                        <a href="#">12 March</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
-
+            </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
   <!-- ##### Single Blog Area End ##### -->

@@ -52,11 +52,12 @@ def detail(request, life_question_id):
     """
     
     question = get_object_or_404(life_Question, pk=life_question_id)
+    side_question_list = life_Question.objects.order_by('-create_date')
     photo = Photo.objects.filter(post=life_question_id,boards='1')
     cnt = life_Question.objects.get(pk=life_question_id)
     cnt.q_hit +=1
     cnt.save()
-    context = {'question': question,'photos': photo}
+    context = {'question': question,'photos': photo ,'side_question_list':side_question_list[0:5]}
 #    return render(request, 'FreeBoard/question_detail.html', context)
     return render(request, 'MainBoard/lifepost_detail.html', context)
 
