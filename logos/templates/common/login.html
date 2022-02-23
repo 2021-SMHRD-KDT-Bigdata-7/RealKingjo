@@ -1,0 +1,60 @@
+{% extends "main.html" %}
+{% block content %}
+{% load static %}
+
+  <!-- ##### Breadcumb Area Start ##### -->
+  <div class="breadcumb-area bg-img" style="background-image: url({% static 'img/bg-img/bg4.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <div class="breadcumb-content text-center">
+            <h2>
+               로그인
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ##### Breadcumb Area End ##### -->
+
+  <div class="container section-padding-100">
+
+    <div class="row">
+    <div class="col-0 col-lg-3"></div>
+    <div class="col-0 col-lg-6">
+      <div class="container my-3">
+        <div class="row">
+          <div class="col-4">
+            <h4>로그인</h4>
+          </div>
+          <div class="col-8 text-right">
+            <span>또는
+              <a href="{% url 'common:join' %}">계정을 만드세요.</a>
+            </span>
+          </div>
+        </div>
+        <hr class="mt-30 mb-30">
+        <form method="post" class="post-form" action="{% url 'common:login' %}">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next }}">
+          <!-- 로그인 성공후 이동되는 URL -->
+          {% include "form_errors.html" %}
+          <div class="form-group">
+            <label for="username">사용자ID</label>
+            <input type="text" class="form-control" name="username" id="username" value="{{ form.username.value|default_if_none:'' }}">
+          </div>
+          <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input type="password" class="form-control" name="password" id="password" value="{{ form.password.value|default_if_none:'' }}">
+          </div>
+          <button type="submit" class="btn btn-primary mt-15">로그인</button>
+        </form>
+        <hr class="mt-30 mb-30">
+      </div>
+    </div>
+</div>
+    <div class="col-0 col-lg-3"></div>
+
+  </div>
+{% endblock %}

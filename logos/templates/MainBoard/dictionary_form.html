@@ -1,0 +1,136 @@
+{% extends 'main.html' %}
+{% load MainBoard_filter %}
+{% block content %}
+  {% load static %}
+  <!-- ##### Breadcumb Area Start ##### -->
+  <div class="bg-img " style="background-image: url({% static 'img/bg-img/bg4.jpg' %});">
+    <div class="breadcumb-area">
+      <div class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-12">
+            <div class="breadcumb-content text-center">
+              <h2>법률 사전 검색</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ##### Breadcumb Area End ##### -->
+
+  <!-- ##### Blog Wrapper Start ##### -->
+  <div class="blog-wrapper section-padding-50 clearfix">
+    
+    <div class="container">
+      <div class="row align-items-center section-padding-100">
+        <div class="col-lg-2 col-1"></div>
+        <div class="col-lg-8 col-10 ">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}" placeholder="법률용어 검색하기" aria-label="sc" aria-describedby="basic-addon2" >
+            <div class="input-group-append">
+              
+              <button class="btn btn-secondary" type="button" id="btn_search" >검색하기</button>
+            </div>
+          </div>
+          <hr style="border:solid 3px;">
+        </div>
+    </div>
+  </div>
+    </div>
+  
+    <hr>
+
+    <div class="container">
+      <div class="row align-items-top">
+        <!-- Single Blog Area -->
+        <table class="col-12">
+          <tbody>
+            
+
+              
+              {% for Search_db in search_list %}
+                {% if search_list%}
+            <tr class="row border align-items-center mb-3 col-12">
+              
+              <th class="col-2">
+                <h4 class="border-right text-center m-0 ">{{ Search_db.subject }}</h4>
+              </th>
+              <td class="col-10 align-items-center" style="padding:15px 15px 15px 15px;">
+                <div class="d-inline-block">
+                  <p class="col-12 m-0">뜻풀이</p>
+                  <h6 class="col-12">{{ Search_db.content}}</h6>
+                </div>
+              </td>
+            </tr>
+            {% endif%}
+              {% endfor %}
+          </tbody>
+        </table>
+       
+     <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+      <!-- 이전페이지 -->
+      {% if search_list.has_previous %}
+      <li class="page-item">
+          <a class="page-link" href="?page={{ search_list.previous_page_number }}">이전</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+      </li>
+      {% endif %}
+      <!-- 페이지리스트 -->
+      {% for page_number in search_list.paginator.page_range %}
+      {% if page_number >= search_list.number|add:-5 and page_number <= search_list.number|add:5 %}
+          {% if page_number == search_list.number %}
+          <li class="page-item active" aria-current="page">
+              <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+              <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+          </li>
+          {% endif %}
+          {% endif %}
+      {% endfor %}
+      <!-- 다음페이지 -->
+      {% if search_list.has_next %}
+      <li class="page-item">
+          <a class="page-link" href="?page={{ search_list.next_page_number }}">다음</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+      </li>
+      {% endif %}
+  </ul>
+  <!-- 페이징처리 끝 -->
+  <form id="searchForm" method="get" action="{% url "MainBoard:dictionary" %}">
+    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+    <input type="hidden" id="page" name="page" value="{{ page }}">
+    
+</form>
+    </div>
+    <hr>
+  {% endblock %}
+  {% block script %}
+
+  <script type='text/javascript'>
+  $(document).ready(function(){
+      $(".page-link").on('click', function() {
+          $("#page").val($(this).data("page"));
+          $("#searchForm").submit();
+      });
+  
+      $("#btn_search").on('click', function() {
+          $("#kw").val($(".kw").val());
+          $("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+          $("#searchForm").submit();
+      });
+      
+  });
+  </script>
+  {% endblock %}
+
+  

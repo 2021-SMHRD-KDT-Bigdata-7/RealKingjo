@@ -1,0 +1,268 @@
+{% extends 'main.html' %}
+{% load MainBoard_filter %}
+{% block content %}
+  {% load static %}
+  {% load icon %}
+
+  <!-- ##### Breadcumb Area Start ##### -->
+  <div class="breadcumb-area bg-img mb-50" style="background-image: url({% static 'img/bg-img/bg4.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <div class="breadcumb-content text-center">
+            <h2>생활 법률 포스트</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ##### Breadcumb Area End ##### -->
+
+  <!-- ##### Blog Wrapper Start ##### -->
+  <hr>
+
+  <div class="container">
+
+    <div class="row align-items-end">
+      <!-- Single Blog Area -->
+      <!-- Single Blog Area -->
+      <div class="single-blog-area blog-style-2 mb-50 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1000ms">
+        <div class="row">
+
+          {% for top_question in top_paginator %}
+            <div class="col-12 col-md-4">
+              <div class="single-blog-thumbnail">
+                <div class="post-date" style="padding:3px;">
+                  <h6>{{forloop.counter}}</h6>인기
+                </div>
+                {% if top_question.photo_set.count > 0 %}
+                  {% for photo in top_question.photo_set.all%}
+                    <a href="{% url 'MainBoard:lifedetail' top_question.id %}"><img src="{{photo.image.url}}"></a>
+                  {% endfor %}
+                {% else %}
+                  <a href="{% url 'MainBoard:lifedetail' top_question.id %}"><img src="{% static 'img/bg-img/bg4.jpg' %}"></a>
+                {% endif %}
+                <div class="m-10 text-center">
+                  <a href="{% url 'MainBoard:lifedetail' top_question.id %}">
+                    <h5>{{top_question.subject}}</h5>
+                  </a>
+                </div>
+                <a href="{% url 'MainBoard:lifedetail' top_question.id %}">
+                  <p>{{top_question.content}}</p>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr style="margin:0">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-9">
+
+        <!-- Single Blog Area -->
+
+        <form id="searchForm" method="get" action="{% url 'MainBoard:lifepost' %}">
+          <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+          <input type="hidden" id="page" name="page" value="{{ page }}">
+          <input type="hidden" id="so" name="so" value="{{ so }}">
+        </form>
+
+        <div class="single-blog-area blog-style-2 mb-50 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1000ms">
+
+          {% if question_list %}
+            {% for life_question in question_list %}
+              <ul>
+                <div class="row align-items-center">
+                  <div class="col-12 col-md-5">
+                    <div class="single-blog-thumbnail">
+                      {% if life_question.photo_set.count > 0 %}
+                        {% for photo in life_question.photo_set.all%}
+                          <img src="{{photo.image.url}}"><br>
+                        {% endfor %}
+                      {% else %}
+                        <img src="{% static 'img/bg-img/bg4.jpg' %}" alt="">
+                      {% endif %}
+                      <div class="post-date">
+                        <a href="{% url 'MainBoard:lifedetail' life_question.id %}">{{life_question.id}}
+                          <span>번호</span></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-7">
+                    <!-- Blog Content -->
+                    <div class="single-blog-content">
+                      <div class="line"></div>
+                      <a href="#" class="post-tag">생활 법률 포스트</a>
+                      <a href="{% url 'MainBoard:lifedetail' life_question.id %}" class="post-headline">
+                        <h4>{{life_question.subject}}</h4>
+                        <p>{{life_question.content}}</p>
+
+                        <div class="post-meta">
+                          <p>작성자
+                            <a href="#">{{ life_question.author.username }}</a>
+                          </p>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </ul>
+              {% endfor %}
+            {% else %}
+              <p>질문이 없습니다.</p>
+            {% endif %}
+          </div>
+          <!-- 페이징처리 시작 -->
+          <ul class="pagination justify-content-center">
+            <!-- 이전페이지 -->
+            {% if question_list.has_previous %}
+              <li class="page-item">
+                <a class="page-link" data-page="{{ question_list.previous_page_number }}" href="#">이전</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+              </li>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            {% for page_number in question_list.paginator.page_range %}
+              {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
+                {% if page_number == question_list.number %}
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                  </li>
+                {% else %}
+                  <li class="page-item">
+                    <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+                  </li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            <!-- 다음페이지 -->
+            {% if question_list.has_next %}
+              <li class="page-item">
+                <a class="page-link" data-page="{{ question_list.next_page_number }}" href="#">다음</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+              </li>
+            {% endif %}
+          </ul>
+          <!-- 페이징처리 끝 -->
+
+          <!-- Load More -->
+          <div class="load-more-btn mb-100 wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1000ms">
+            <a href="{% url 'MainBoard:life_question_create' category.id %}">
+              <button class="btn btn-primary">글쓰기</button>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- ##### Sidebar Area ##### -->
+        <div class="col-12 col-md-4 col-lg-3 ">
+          <div class="post-sidebar-area ">
+
+            <div class="row justify-content-end my-3">
+              <div class="col-12 input-group">
+                <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Widget Area -->
+            <div class="sidebar-widget-area">
+
+              <h5 class="mb-10">최신 게시글</h5>
+              <div class="widget-content col-12">
+
+                {% for side_question in side_question_list %}
+                  <!-- Single Blog Post -->
+                  <div class="single-blog-post d-flex align-items-center widget-post  border-bottom">
+
+                  {% if side_question.category_id == 1 %}
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/bg-img/b1.jpg'%}" alt="">
+                  </div>
+                  {% else %}
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/bg-img/bg5.jpg'%}" alt="">
+                  </div>
+                  {% endif%}
+
+                    <!-- Post Content -->
+                    <div class="post-content">
+                      {% if side_question.category_id == 1 %}
+                        <a href="{% url 'FreeBoard:free' %}" class="post-tag">자유게시판</a><br>
+                      {% else %}
+                        <a href="{% url 'FreeBoard:qna' %}" class="post-tag">질문및답변</a><br>
+                      {% endif%}
+                        <a href="{% url 'FreeBoard:detail' side_question.id %}" ><div style="max-height:42px; overflow:hidden;">{{side_question.subject}}</div></a>
+                          <p class="text-danger small " >응답
+                            {{ side_question.comment_set.count }}</p>
+                    </div>
+                  </div>
+                {% endfor %}
+                </div>
+                <!-- Widget Area -->
+                <h5 class="">광고 배너</h5>
+                <div class="sidebar-widget-area">
+                  <a href="#"><img src="{% static 'img/bg-img/add.gif' %}" alt=""></a>
+                </div>
+
+              <div class="sidebar-widget-area">
+                <h5 class="title">Tags</h5>
+                <div class="widget-content">
+                    <ul class="tags">
+                        <li><a href="#">design</a></li>
+                        <li><a href="#">fashion</a></li>
+                        <li><a href="#">travel</a></li>
+                        <li><a href="#">music</a></li>
+                        <li><a href="#">party</a></li>
+                        <li><a href="#">video</a></li>
+                        <li><a href="#">photography</a></li>
+                        <li><a href="#">adventure</a></li>
+                    </ul>
+                </div>
+            </div>              
+
+              </div>
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ##### Blog Wrapper End ##### -->
+  {% endblock %}
+  {% block script %}
+    <script type='text/javascript'>
+      $(document).ready(function () {
+        $(".page-link").on('click', function () {
+          $("#page").val($(this).data("page"));
+          $("#searchForm").submit();
+        });
+
+        $("#btn_search").on('click', function () {
+          $("#kw").val($(".kw").val());
+          $("#page").val(1); // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+          $("#searchForm").submit();
+        });
+        $(".so").on('change', function () {
+          $("#so").val($(this).val());
+          $("#page").val(1);
+          $("#searchForm").submit();
+        });
+      });
+    </script>
+  {% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+{% load static %}
+
+  <!-- ##### Breadcumb Area Start ##### -->
+  <div class="breadcumb-area bg-img" style="background-image: url({% static 'img/bg-img/bg8.jpg'%});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <div class="breadcumb-content text-center">
+            <h2>댓글 수정하기</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ##### Breadcumb Area End ##### -->
+
+<div class="container my-3">
+    <h5 class="border-bottom pb-2">댓글등록하기</h5>
+    <form method="post" class="post-form my-3">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <div class="form-group">
+            <label for="content">댓글내용</label>
+            <textarea class="form-control"name="content" id="content" 
+                      rows="3">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">저장하기</button>
+    </form>
+</div>
+{% endblock %}

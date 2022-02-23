@@ -1,0 +1,233 @@
+{% extends 'main.html' %}
+{% block content %}
+  {% load static %}
+  {% load icon %}
+
+  <!-- ##### Breadcumb Area Start ##### -->
+  <div class="breadcumb-area bg-img" style="background-image: url({% static 'img/bg-img/bg4.jpg'%});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <div class="breadcumb-content text-center">
+            <h2>생활법률</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ##### Breadcumb Area End ##### -->
+
+  <!-- 사용자오류 표시 -->
+  {% if messages %}
+    <div class="alert alert-danger my-3" role="alert">
+      {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul>
+          <li>{{ message.message }}</li>
+        </ul>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- ##### Single Blog Area Start ##### -->
+  <div class="single-blog-wrapper section-padding-0-100">
+
+    <div class="container">
+      <div class="row">
+        <!-- ##### Post Content Area ##### -->
+        <div class="col-12 col-lg-9">
+          <!-- Single Blog Area -->
+          <div class="single-blog-area blog-style-2 mb-50">
+            <!-- Blog Content -->
+            <div class="single-blog-content">
+              <div class="line"></div>
+              <a href="#" class="post-tag">생활 법률</a>
+              <h2 class="border-bottom py-2">{{ question.subject }}</h2>
+              <div class="card-text" style="white-space: pre-line;">
+                {{ question.content }}
+
+                {% for photo in question.photo_set.all%}
+                  <img src="{{photo.image.url}}"><br>
+                {% endfor %}
+              </div>
+              <div class="post-meta mb-50">
+                <p>By
+                  <a href="#">{{ question.author }}</a>
+                </p>
+                <p>{{question.create_date}}</p>
+              </div>
+
+              <hr style="border:solid 2px;">
+              <div class="">
+                <h6 class="title m-0">댓글</h6>
+                {% if question.life_comment_set.count > 0%}
+                  <ol>
+                    {% for comment in question.life_comment_set.all %}
+                      <!-- Single Comment Area -->
+                      <li class="single_comment_area">
+                        <!-- Comment Content -->
+                        <div class="comment-content col-12">
+                          <!-- Comment Meta -->
+                          <div class="comment-meta mt-15 border-bottom">
+                            <p class="m-0">
+                              <a name="comment_{{ comment.id }}">{{ comment.author }}</a>
+                              {{ comment.create_date }}
+                              {% if request.user == comment.author %}
+                                <a href="{% url 'MainBoard:life_comment_modify_question' comment.id  %}" class="small">수정</a>,
+                                <a href="#" class="small delete" data-uri="{% url 'MainBoard:life_comment_delete_question' comment.id  %}">삭제</a>
+                              {% endif %}
+                            </p>
+                            <span>{{ comment.content }}</span>
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ol>
+                {% endif %}
+              </div>
+
+              <!--댓글 등록 창 시작-->
+              <div class="container my-3">
+                <form action="{% url 'MainBoard:life_comment_create_question'%}" method="POST" class="post-form my-3">
+                  {% csrf_token %}
+                  {% include "form_errors.html" %}
+                  <div class="input-group mb-3">
+                    <input type="hidden" value="{{question.id}}" id="address" name="address">
+                    <input type="text" id="content" name="content" class="form-control" placeholder="댓글내용" aria-label="comment_form" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit">등록하기</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!--댓글 등록 끝-->
+
+              {% if request.user == question.author %}
+                <div class="my-3">
+                  <a href="{% url 'MainBoard:life_question_modify' question.id  %}" class="btn btn-sm btn-outline-secondary">수정</a>
+                  <a href="#" class="delete btn btn-sm btn-outline-secondary" data-uri="{% url 'MainBoard:life_question_delete' question.id  %}">삭제</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- ##### Sidebar Area ##### -->
+        <div class="col-12 col-md-4 col-lg-3 border-right border-left" style="margin-top: 68px ;border-width:3px">
+          <div class="post-sidebar-area" style="margin:">
+
+            <!-- Widget Area -->
+            <div class="sidebar-widget-area">
+              <form action="#" class="search-form">
+                <input type="search" name="search" id="searchForm" placeholder="검색">
+                <input type="submit" value="submit">
+              </form>
+            </div>
+
+            <!-- Widget Area -->
+            <div class="sidebar-widget-area">
+              <h5 class="title">최근 게시글</h5>
+
+              <div class="widget-content">
+
+                <!-- Single Blog Post -->
+                <div class="single-blog-post d-flex align-items-center widget-post">
+                  <!-- Post Thumbnail -->
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/blog-img/lp1.jpg'%}" alt="">
+                  </div>
+                  <!-- Post Content -->
+                  <div class="post-content">
+                    <a href="#" class="post-tag">자유게시판</a>
+                    <h4>
+                      <a href="#" class="post-headline">아름다운 파티 계획</a>
+                    </h4>
+                    <div class="post-meta">
+                      <p>
+                        <a href="#">8 March</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Single Blog Post -->
+                <div class="single-blog-post d-flex align-items-center widget-post">
+                  <!-- Post Thumbnail -->
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/blog-img/lp2.jpg'%}" alt="">
+                  </div>
+                  <!-- Post Content -->
+                  <div class="post-content">
+                    <a href="#" class="post-tag">질문게시판</a>
+                    <h4>
+                      <a href="#" class="post-headline">교통사고 블랙박스 효능</a>
+                    </h4>
+                    <div class="post-meta">
+                      <p>
+                        <a href="#">6 March</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Single Blog Post -->
+                <div class="single-blog-post d-flex align-items-center widget-post">
+                  <!-- Post Thumbnail -->
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/blog-img/lp3.jpg'%}" alt="">
+                  </div>
+                  <!-- Post Content -->
+                  <div class="post-content">
+                    <a href="#" class="post-tag">질문게시판</a>
+                    <h4>
+                      <a href="#" class="post-headline">미성년자 보호법 적용범위</a>
+                    </h4>
+                    <div class="post-meta">
+                      <p>
+                        <a href="#">10 March</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Single Blog Post -->
+                <div class="single-blog-post d-flex align-items-center widget-post">
+                  <!-- Post Thumbnail -->
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/blog-img/lp4.jpg'%}" alt="">
+                  </div>
+                  <!-- Post Content -->
+                  <div class="post-content">
+                    <a href="#" class="post-tag">자유게시판</a>
+                    <h4>
+                      <a href="#" class="post-headline">여행가기 좋은곳 나열해준다.</a>
+                    </h4>
+                    <div class="post-meta">
+                      <p>
+                        <a href="#">12 March</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ##### Single Blog Area End ##### -->
+{% endblock %}
+{% block script %}
+  <script type='text/javascript'>
+    $(document).ready(function () {
+      $(".delete").on('click', function () {
+        if (confirm("정말로 삭제하시겠습니까?")) {
+          location.href = $(this).data('uri');
+        }
+      });
+    });
+  </script>
+{% endblock %}

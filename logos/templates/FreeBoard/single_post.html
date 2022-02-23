@@ -1,0 +1,254 @@
+{% extends 'main.html' %}
+{% block content %}
+  {% load static %}
+  <!-- ##### Single Blog Area Start ##### -->
+  <div class="single-blog-wrapper section-padding-0-100">
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img" style="background-image: url({% static 'img/bg-img/bg8.jpg'%});">
+      <div class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-12">
+            <div class="breadcumb-content text-center">
+              <h2>커뮤니티</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- 사용자오류 표시 -->
+    {% if messages %}
+      <div class="alert alert-danger my-3" role="alert">
+        {% for message in messages %}
+          <strong>{{ message.tags }}</strong>
+          <ul>
+            <li>{{ message.message }}</li>
+          </ul>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="container mt-50 border">
+      <div class="row">
+        <!-- ##### Post Content Area ##### -->
+        <div class="col-12 col-lg-12 mt-30">
+          <!-- Single Blog Area -->
+          <div class="single-blog-area blog-style-2 mb-50">
+            <!-- Blog Content -->
+            <div class="single-blog-content">
+              <div class="line"></div>
+              {% if question.category_id == 1 %}
+                <a href="{% url 'FreeBoard:free' %}" class="post-tag">자유게시판</a>
+              {% else %}
+                <a href="{% url 'FreeBoard:qna' %}" class="post-tag">질문답변게시판</a>
+              {% endif %}
+              <h4>
+                <a href="#" class="post-headline mb-0">{{ question.subject }}</a>
+              </h4>
+              <div class="post-meta mb-15">
+                <p>작성자
+                  <a href="#">{{question.author.username}}</a>
+                </p>
+                <p>{{question.answer_set.count}}
+                  답변</p>
+                <p style="padding-left:5px">{{ question.create_date }}</p>
+                {% if request.user == question.author %}
+                  <a href="{% url 'FreeBoard:question_modify' question.id  %}" style="padding-left:5px">수정</a>
+                  <a href="#" data-uri="{% url 'FreeBoard:question_delete' question.id %}" style="padding-left:5px">삭제</a>
+                {% endif %}
+              </div>
+              <hr style="border:solid 2px;">
+
+              <p class="m-0" style="padding: 50px">{{ question.content }}</p>
+              {% for photo in question.photo_set.all%}
+                <img src="{{photo.image.url}}"><br>
+              {% endfor %}
+
+            </div>
+
+            {% if question.modify_date %}
+              <div class="badge badge-light p-2 text-left mx-3">
+                <div class="mb-2">modified at</div>
+                <div>{{ question.modify_date }}</div>
+              </div>
+            {% endif %}
+
+            <div class="col-1" style="float: none; margin:0 auto;">
+              <!-- 추천영역 -->
+              <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{question.voter.count}}</div>
+              <a href="#" data-uri="{% url 'FreeBoard:vote_question' question.id  %}" class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+            </div>
+          </div>
+
+          <hr style="border:solid 2px;">
+          <div class="">
+            <h6 class="title m-0">댓글</h6>
+            {% if question.comment_set.count > 0%}
+              <ol>
+                {% for comment in question.comment_set.all %}
+                  <!-- Single Comment Area -->
+                  <li class="single_comment_area">
+                    <!-- Comment Content -->
+                    <div class="comment-content col-12">
+                      <!-- Comment Meta -->
+                      <div class="comment-meta mt-15 border-bottom">
+                        <p class="m-0">
+                          <a name="comment_{{ comment.id }}">{{ comment.author }}</a>
+                          {{ comment.create_date }}
+                          {% if request.user == comment.author %}
+                          <a href="{% url 'FreeBoard:comment_modify_question' comment.id  %}" class="small">수정</a>,
+                          <a href="#" class="small delete" data-uri="{% url 'FreeBoard:comment_delete_question' comment.id  %}">삭제</a>
+                        {% endif %}
+                        </p>
+                        <span>{{ comment.content }}</span>
+                      </div>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ol>
+            {% endif %}
+          </div>
+
+          <!--댓글 등록 창 시작-->
+          <div class="container my-3">
+            <form action="{% url 'FreeBoard:comment_create_question'%}" method="POST" class="post-form my-3">
+              {% csrf_token %}
+              {% include "form_errors.html" %}
+              <div class="input-group mb-3">
+                <input type="hidden" value="{{question.category_id}}" id="category" name="category">
+                <input type="hidden" value="{{question.id}}" id="address" name="address">
+                <input type="text" id="content" name="content" class="form-control" placeholder="댓글내용" aria-label="comment_form" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit">등록하기</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!--댓글 등록 끝-->
+
+        </div>
+      </div>
+
+      {% for answer in question.answer_set.all %}
+        <a name="answer_{{ answer.id }}"></a>
+        <div class="row">
+          <div class="col-1">
+            <!-- 추천영역 -->
+            <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{answer.voter.count}}</div>
+            <a href="#" data-uri="{% url 'FreeBoard:vote_answer' answer.id  %}" class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+          </div>
+          <div class="col-11">
+            <!-- 답변영역 -->
+            <!-- 기존내용 -->
+            <div class="card">
+              <div class="card-body">
+                <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
+                <div class="d-flex justify-content-end">
+                  {% if answer.modify_date %}
+                    <div class="badge badge-light p-2 text-left mx-3">
+                      <div class="mb-2">modified at</div>
+                      <div>{{ answer.modify_date }}</div>
+                    </div>
+                  {% endif %}
+                  <div class="badge badge-light p-2 text-left">
+                    <div class="mb-2">{{ answer.author.username }}</div>
+                    <div>{{ answer.create_date }}</div>
+                  </div>
+                </div>
+                <div class="">
+                  <h6 class="title m-0">댓글</h6>
+                  {% if answer.comment_set.count > 0 %}
+                    <ol>
+                      {% for comment in answer.comment_set.all %}
+                        <!-- Single Comment Area -->
+                        <li class="single_comment_area">
+                          <!-- Comment Content -->
+                          <div class="comment-content col-12">
+                            <!-- Comment Meta -->
+                            <div class="comment-meta mt-15 border-bottom">
+                              <p class="m-0">
+                                <a name="comment_{{ comment.id }}">{{ comment.author }}</a>
+                                {{ comment.create_date }}
+                                {% if request.user == comment.author %}
+                                <a href="{% url 'FreeBoard:comment_modify_answer' comment.id  %}" class="small">수정</a>,
+                                <a href="#" class="small delete" data-uri="{% url 'FreeBoard:comment_delete_answer' comment.id  %}">삭제</a>
+                              {% endif %}
+                              </p>
+                              <span>{{ comment.content }}</span>
+                            </div>
+                          </div>
+                        </li>
+                      {% endfor %}
+                      <li class="single_comment_area">
+                        <!-- Comment Content -->
+                        <div class="comment-content col-12"></div>
+                      </li>
+                    </ol>
+                  {% endif %}
+
+                  <!--댓글 등록 창 시작-->
+                  <div class="container my-3">
+                    <form action="{% url 'FreeBoard:comment_create_answer' answer.id  %}" method="POST" class="post-form my-3">
+                      {% csrf_token %}
+                      {% include "form_errors.html" %}
+                      <div class="input-group mb-3">
+                        <input type="hidden" value="{{answer.id}}" id="address" name="address">
+                        <input type="text" id="content" name="content" class="form-control" placeholder="댓글내용" aria-label="comment_form" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" type="submit">등록하기</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!--댓글 등록 끝-->
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+      <form action="{% url 'FreeBoard:answer_create' question.id %}" method="post" class="my-3">
+        {% csrf_token %}
+        {% if form.errors %}
+          <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+              {% if field.errors %}
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="form-group">
+          <textarea {% if not user.is_authenticated %} disabled="disabled{% endif %}" name="content" id="content" class="form-control" rows="10"></textarea>
+        </div>
+        <input type="submit" value="답변등록" class="btn btn-primary">
+      </form>
+
+    </div>
+  </div>
+<!-- ##### Single Blog Area End ##### -->
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+  $(document).ready(function () {
+    $(".delete").on('click', function () {
+      if (confirm("정말로 삭제하시겠습니까?")) {
+        location.href = $(this).data('uri');
+      }
+    });
+
+    $(".recommend").on('click', function () {
+      if (confirm("정말로 추천하시겠습니까?")) {
+        location.href = $(this).data('uri');
+      }
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,199 @@
+{% extends 'main.html' %}
+{% load MainBoard_filter %}
+{% block content %}
+  {% load static %}
+
+  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/hierarchy.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+  <!-- ##### Breadcumb Area Start ##### -->
+  <div class="breadcumb-area bg-img" style="background-image: url({% static 'img/bg-img/bg5.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <div class="breadcumb-content text-center">
+            <h2>{{mainfile.title}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ##### Breadcumb Area End ##### -->
+
+  <!-- ##### Blog Wrapper Start ##### -->
+  <div class="blog-wrapper clearfix" style="padding: 30px 0 100px 0;">
+    <div class="container">
+      <!--con-->
+      <div class="col-12">
+      <form action="{% url 'MainBoard:keyword' %}" method="get">
+      <div class="input-group mb-3">
+        <input name="word" type="text" class="form-control" placeholder="검색값을 입력해 주세요" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">검색하기</button>
+        </div>
+      </div>
+      <form>
+    </div>
+
+      <div class="row mt-3">
+
+          <div class="col-lg-3 col-12">
+
+            <div class="col-12">
+              <div class="card mb-15">
+                <div class="card-body">
+                  <h4 class="card-title">{{mainfile.title}}</h4>
+                  <p>{{mainfile.description}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 ">
+              <div class="card mb-15">
+                <div class="card-body">
+                  <h4 class="card-title">{{mainfile.title}}의 연관검색어</h4>
+                  <div style="max-height:200px; overflow:auto; margin:8px">
+                    {% for i in keyfile%}
+                      {% if i.title != mainfile.title %}
+                        <h6 class="text-dark font-weight-bold mb-2">{{i.title}}</h6>
+                        {% else %}
+                        <h6 class="text-dark font-weight-bold mb-2">{{i.title}}[동음의어]</h6>
+                        {% endif %}
+                      {% endfor %}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-9 col-12">
+            <div class="card mb-15">
+              <div class="card-body">
+                <h4 class="card-title">연관 단어</h4>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div id="chartdiv" style=" width: 100%;height: 500px;"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="card mb-15">
+                <div class="card-body">
+                  <h4 class="card-title">사전 정의</h4>
+                  <div style="max-height:400px; overflow:auto;">
+                    {% for i in keyfile%}
+                        <a href="{{i.link}}">
+                          <h5 class="text-dark font-weight-bold ">{{i.title}}</h5>
+                        </a>
+                        <p class="text-dark font-weight-bold mb-2">{{i.description}}</p>
+                        <br>
+                    {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      </div>
+
+      <!--con-->
+    </div>
+  </div>
+
+  <!-- ##### Blog Wrapper End ##### -->
+{% endblock %}
+
+{% block script %}
+  <!--방문자 + 검색량 시작 -->
+  <!-- Styles -->
+
+  <!-- Chart code -->
+  <script>
+    am5.ready(function () {
+
+      let filelist = "{{keyfile}}".replace(/&#x27;/g, "\"");
+      var placeData = JSON.parse(filelist);
+
+      // Create root element
+      // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+      var root = am5
+        .Root
+        .new("chartdiv");
+
+      // Set themes
+      // https://www.amcharts.com/docs/v5/concepts/themes/
+      root.setThemes([am5themes_Animated.new(root)]);
+
+      // Create wrapper container
+      var container = root
+        .container
+        .children
+        .push(am5.Container.new(root, {
+          width: am5.percent(100),
+          height: am5.percent(100),
+          layout: root.verticalLayout
+        }));
+
+      // Create series
+      // https://www.amcharts.com/docs/v5/charts/hierarchy/#Adding
+      var series = container
+        .children
+        .push(am5hierarchy.ForceDirected.new(root, {
+          singleBranchOnly: false,
+          downDepth: 1,
+          initialDepth: 2,
+          valueField: "value",
+          categoryField: "name",
+          childDataField: "children",
+          centerStrength: 1,
+          minRadius: 20,
+          maxRadius: am5.percent(15)
+
+        }));
+
+      // Generate and set data
+      // https://www.amcharts.com/docs/v5/charts/hierarchy/#Setting_data
+
+      var data = {
+        name: placeData[0]['title'],
+        children: []
+      }
+      generateLevel(data, name, 0);
+      series
+        .data
+        .setAll([data]);
+      series.set("selectedDataItem", series.dataItems[0]);
+
+      function generateLevel(data, name, level) {
+        for (var i = 0; i < placeData.length; i++) {
+          var nodeName = placeData[i];
+          var child;
+          child = {
+            name: placeData[i]['title'],
+            value: placeData.length - i
+          }
+          data
+            .children
+            .push(child);
+        }
+        level++;
+        return data;
+      }
+      // Make stuff animate on load
+      series.appear(1000, 100);
+    }); // end am5.ready()
+  </script>
+  <!--방문자 + 검색량 끝 -->
+
+{% endblock %}

@@ -1,0 +1,298 @@
+{% extends 'main.html' %}
+{% block content %}
+  {% load static %}
+  <!-- ##### Hero Area Start ##### -->
+  <div class="hero-area">
+    <!-- Hero Slides Area -->
+    <div class="hero-slides owl-carousel">
+      <!-- Single Slide -->
+      <div class="single-hero-slide bg-img" style="background-image: url({% static 'img/bg-img/bg2.jpg'%});">
+        <div class="container h-100">
+          <div class="row h-100 align-items-center">
+            <div class="col-12">
+              <div class="slide-content text-center">
+                <div class="post-tag">
+                  <a href="{% url 'Logos:userinput' %}" data-animation="fadeInUp">판례 검색 서비스</a>
+                </div>
+                <h2 data-animation="fadeInUp" data-delay="10ms">
+                  <a href="{% url 'Logos:userinput' %}">
+                    나의 상황과 유사한 판례 찾아보기
+                  </a>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Single Slide -->
+      <div class="single-hero-slide bg-img" style="background-image: url({% static 'img/bg-img/bg3.jpg'%});">
+        <div class="container h-100">
+          <div class="row h-100 align-items-center">
+            <div class="col-12">
+              <div class="slide-content text-center">
+                <div class="post-tag">
+                  <a href="{% url 'MainBoard:status' %}" data-animation="fadeInUp">키워드 분석</a>
+                </div>
+                <h2 data-animation="fadeInUp" data-delay="10ms">
+                  <a href="{% url 'MainBoard:status' %}">
+                    키워드 분석 통계 살펴보기
+                  </a>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Single Slide -->
+      <div class="single-hero-slide bg-img" style="background-image: url({% static 'img/bg-img/bg7.jpg'%});">
+        <div class="container h-100">
+          <div class="row h-100 align-items-center">
+            <div class="col-12">
+              <div class="slide-content text-center">
+                <div class="post-tag">
+                  <a href="{% url 'FreeBoard:qna' %}" data-animation="fadeInUp">커뮤니티</a>
+                </div>
+                <h2 data-animation="fadeInUp" data-delay="10ms">
+                  <a href="{% url 'FreeBoard:qna' %}">
+                    법관련 커뮤니티 참여하기
+                  </a>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ##### Hero Area End ##### -->
+
+  <!-- ##### Blog Wrapper Start ##### -->
+  <div class="blog-wrapper section-padding-100 clearfix">
+    <div class="container">
+      <div class="row align-items-top">
+        <!-- Single Blog Area -->
+        <div class="col-12 col-lg-4">
+          <div class="single-blog-area clearfix mb-100">
+            <!-- Blog Content -->
+            <div class="single-blog-content">
+              <div class="line"></div>
+              <a href="#" class="post-tag">서비스</a>
+              <h4>
+                <a href="#" class="post-headline">인공지능과 사람의 만남</a>
+              </h4>
+              <p>접근하기 힘든 법률 시스템을 모든 사람들이 조금 더 편하게 법에 다가갈수 있도록 서비스를 제공하는 것을 목표로 삼고 있습니다.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Single Blog Area -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="single-catagory-area clearfix mb-100">
+            <img src="{% static 'img/bg-img/bg3.jpg'%}" alt="">
+            <!-- Catagory Title -->
+            <div class="catagory-title">
+              <a href="{% url 'Logos:userinput' %}">인공지능 서비스</a>
+            </div>
+          </div>
+        </div>
+        <!-- Single Blog Area -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="single-catagory-area clearfix mb-100">
+            <img src="{% static 'img/bg-img/bg1.jpg'%}" alt="">
+            <!-- Catagory Title -->
+            <div class="catagory-title">
+              <a href="{% url 'FreeBoard:qna' %}">사용자 서비스</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-lg-9">
+
+          <!-- Single Blog Area -->
+          {% for life_question in question_list %}
+            <div class="single-blog-area blog-style-2 mb-50 wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="1000ms">
+              <div class="container row">
+                <div class="col-lg-6 col-6">
+                  <div class="single-blog-thumbnail">
+                    {% if life_question.photo_set.count > 0 %}
+                      {% for photo in life_question.photo_set.all%}
+                        <img src="{{photo.image.url}}"><br>
+                      {% endfor %}
+                    {% else %}
+                      <img src="{% static 'img/bg-img/bg4.jpg' %}" alt="">
+                    {% endif %}
+                    <div class="post-date">
+                      <a href="#">{{forloop.counter}}
+                        <span>번호</span></a>
+                    </div>
+                  </div>
+                  <!-- Blog Content -->
+                </div>
+                <div class="col-lg-6 col-6">
+                  <div class="single-blog-content">
+                    <div class="line"></div>
+                    <a href="{% url 'MainBoard:lifepost' %}" class="post-tag">생활법률</a>
+                    <h4>
+                      <a href="{% url 'MainBoard:lifedetail' life_question.id %}" class="post-headline" style="margin:0px">{{life_question.subject}}</a>
+                    </h4>
+                    <div style="max-height:100px; overflow-y:hidden">{{life_question.content}}</div>
+                  </div>
+
+                  <div class="single-blog-content">
+                    <div class="post-meta">
+                      <p>저자<a href="#">{{ life_question.author.username }}</a>
+                      </p>
+                      <p>{{ life_question.life_comment_set.count }}응답</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+
+        <!-- ##### Sidebar Area ##### -->
+        <div class="col-12 col-md-4 col-lg-3">
+          <div class="post-sidebar-area">
+
+            <!-- Widget Area -->
+            <div class="sidebar-widget-area">
+              <form action="#" class="search-form">
+                <input type="search" name="search" id="searchForm" placeholder="검색">
+                <input type="submit" value="submit">
+              </form>
+            </div>
+
+            <!-- Widget Area -->
+            <div class="sidebar-widget-area">
+              <h5 class="title">최근 게시글</h5>
+
+              <div class="widget-content">
+
+                <!-- Single Blog Post -->
+                <div class="single-blog-post d-flex align-items-center widget-post">
+                  <!-- Post Thumbnail -->
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/blog-img/lp1.jpg'%}" alt="">
+                  </div>
+                  <!-- Post Content -->
+                  <div class="post-content">
+                    <a href="#" class="post-tag">자유게시판</a>
+                    <h4>
+                      <a href="#" class="post-headline">아름다운 파티 계획</a>
+                    </h4>
+                    <div class="post-meta">
+                      <p>
+                        <a href="#">8 March</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Single Blog Post -->
+                <div class="single-blog-post d-flex align-items-center widget-post">
+                  <!-- Post Thumbnail -->
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/blog-img/lp2.jpg'%}" alt="">
+                  </div>
+                  <!-- Post Content -->
+                  <div class="post-content">
+                    <a href="#" class="post-tag">질문게시판</a>
+                    <h4>
+                      <a href="#" class="post-headline">교통사고 블랙박스 효능</a>
+                    </h4>
+                    <div class="post-meta">
+                      <p>
+                        <a href="#">6 March</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Single Blog Post -->
+                <div class="single-blog-post d-flex align-items-center widget-post">
+                  <!-- Post Thumbnail -->
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/blog-img/lp3.jpg'%}" alt="">
+                  </div>
+                  <!-- Post Content -->
+                  <div class="post-content">
+                    <a href="#" class="post-tag">질문게시판</a>
+                    <h4>
+                      <a href="#" class="post-headline">미성년자 보호법 적용범위</a>
+                    </h4>
+                    <div class="post-meta">
+                      <p>
+                        <a href="#">10 March</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Single Blog Post -->
+                <div class="single-blog-post d-flex align-items-center widget-post">
+                  <!-- Post Thumbnail -->
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/blog-img/lp4.jpg'%}" alt="">
+                  </div>
+                  <!-- Post Content -->
+                  <div class="post-content">
+                    <a href="#" class="post-tag">자유게시판</a>
+                    <h4>
+                      <a href="#" class="post-headline">여행가기 좋은곳 나열해준다.</a>
+                    </h4>
+                    <div class="post-meta">
+                      <p>
+                        <a href="#">12 March</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Widget Area -->
+            <div class="sidebar-widget-area">
+              <h5 class="title">Tags</h5>
+              <div class="widget-content">
+                <ul class="tags">
+                  <li>
+                    <a href="#">design</a>
+                  </li>
+                  <li>
+                    <a href="#">fashion</a>
+                  </li>
+                  <li>
+                    <a href="#">travel</a>
+                  </li>
+                  <li>
+                    <a href="#">music</a>
+                  </li>
+                  <li>
+                    <a href="#">party</a>
+                  </li>
+                  <li>
+                    <a href="#">video</a>
+                  </li>
+                  <li>
+                    <a href="#">photography</a>
+                  </li>
+                  <li>
+                    <a href="#">adventure</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}

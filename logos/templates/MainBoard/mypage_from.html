@@ -1,0 +1,198 @@
+{% extends 'main.html' %}
+{% block content %}
+  {% load FreeBoard_filter %}
+  {% load static %}
+
+  <!-- ##### Breadcumb Area Start ##### -->
+  <div class="breadcumb-area bg-img" style="background-image: url({% static 'img/bg-img/bg4.jpg'%});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <div class="breadcumb-content text-center">
+            <h2>마이 페이지</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ##### Breadcumb Area End ##### -->
+
+  <!-- ##### Blog Wrapper Start ##### -->
+  <div class="blog-wrapper section-padding-100 clearfix">
+
+    <div class="container">
+      <div class="row align-items-center ">
+        <div class="col-lg-4 col-1"></div>
+        <div class="col-lg-4 col-10 border">
+          <div class="row">
+            <div class="col-12 text-center section-padding-50">
+              <img class="rounded-circle" src="{% static 'img/core-img/Profile.jpg'%}" alt="" style="width: 128px;height: 128px;">
+            </div>
+            <div class="col-12 d-none d-sm-block">
+              <div class="col-12 h4 text-center">{{ user.username }}</div>
+            </div>
+            <div class="col-12 d-block d-sm-none">
+              <div class="col-12 h4 text-center">{{ user.username }}</div>
+            </div>
+            <div class="col-12 section-padding-15">
+              <p>접근하기 힘든 법률 시스템을 모든 사람들이 조금 더 편하게 법에 다가갈수 있도록 서비스를 제공하는 것을 목표로 삼고 있습니다.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-1"></div>
+      </div>
+    </div>
+    <hr>
+    <div class="container">
+      <div class="row align-items-top">
+
+        <!-- Single Blog Area -->
+        <div class="card border-light mb-3 col-12 col-sm-4">
+          <div class="card-header text-center bg-white">사용자 정보</div>
+          <div class="card-body">
+            <p class="card-title m-0">닉네임</p>
+            <h6 class="card-text">{{ user.last_name }}</h6>
+            <p class="card-title m-0">등급</p>
+            <h6 class="card-text">법의 달인</h6>
+            <p class="card-title m-0">작성 글</p>
+            <h6 class="card-text">{{question_list.count}}</h6>
+            <p class="card-title m-0">작성 댓글</p>
+            <h6 class="card-text">{{comment_list.count}}</h6>
+            <p class="card-title m-0">가입일자</p>
+            <h6 class="card-text">{{user.date_joined}}</h6>
+          </div>
+        </div>
+
+        <!-- Single Blog Area -->
+        <div class="card border-light mb-3 col-12 col-sm-4">
+          <div class="card-header text-center bg-white">사용자 정보</div>
+          <div class="card-body">
+            <p class="card-title m-0">전화번호</p>
+            <h6 class="card-text">{{user.phone}}</h6>
+            <p class="card-title m-0">나이</p>
+            <h6 class="card-text">{{user.age}}</h6>
+            <p class="card-title m-0">성별</p>
+            <h6 class="card-text">{{user.gender}}</h6>
+            <p class="card-title m-0">지역</p>
+            <h6 class="card-text">{{user.location}}</h6>
+          </div>
+        </div>
+
+        <!-- Single Blog Area -->
+        <div class="card border-light mb-3 col-12 col-sm-4">
+          <div class="card-header text-center bg-white">사용자 정보</div>
+          <div class="card-body">
+            <p class="card-title m-0">닉네임</p>
+            <h6 class="card-text">두부가격</h6>
+            <p class="card-title m-0">등급</p>
+            <h6 class="card-text">법의 달인</h6>
+            <p class="card-title m-0">가입일자</p>
+            <h6 class="card-text">2022년 02월 14일</h6>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row align-items-top  border">
+
+        <ul class="nav nav-tabs col-12" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">검색 판례</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">작성 게시글</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">작성 댓글</a>
+          </li>
+        </ul>
+        <div class="tab-content col-12" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <table class="col-12 mt-15 table">
+              <tbody>
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="d-none d-sm-block" scope="col">#</th>
+                    <th scope="col">검색내용</th>
+                    <th class="d-none d-sm-block" scope="col">키워드</th>
+                    <th scope="col">검색일자</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <th class="d-none d-sm-block" scope="row">3</th>
+                  <td>아르바이트로 야간근무를 6시간 도와주었는데 야간보너스를 지급하지 않습니다.</td>
+                  <td class="d-none d-sm-block">아르바이트 , 야간 , 근무 , 보너스 , 지급</td>
+                  <td>2022-02-13</td>
+                </tr>
+                <tr>
+                  <th class="d-none d-sm-block" scope="row">2</th>
+                  <td>아르바이트로 야간근무를 6시간 도와주었는데 야간보너스를 지급하지 않습니다.</td>
+                  <td class="d-none d-sm-block">아르바이트 , 야간 , 근무 , 보너스 , 지급</td>
+                  <td>2022-02-13</td>
+                </tr>
+                <tr>
+                  <th class="d-none d-sm-block" scope="row">1</th>
+                  <td>아르바이트로 야간근무를 6시간 도와주었는데 야간보너스를 지급하지 않습니다.</td>
+                  <td class="d-none d-sm-block">아르바이트 , 야간 , 근무 , 보너스 , 지급</td>
+                  <td>2022-02-13</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <table class="col-12 mt-15 table ">
+              <tbody>
+                <thead class="thead-dark ">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">게시글 제목</th>
+                    <th scope="col">답변</th>
+                    <th scope="col">조회수</th>
+                    <th scope="col">댓글</th>
+                    <th scope="col">추천</th>
+                    <th scope="col">작성일자</th>
+                  </tr>
+                </thead>
+                {% for context in question_list %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>
+                      <a href={% url 'FreeBoard:detail' context.id %}>{{context.subject}}</a>
+                    </td>
+                    <td class="text-center">{{context.answer_set.count}}</td>
+                    <td class="text-center">{{context.q_hit}}</td>
+                    <td class="text-center">{{context.comment_set.count}}</td>
+                    <td class="text-center">{{context.voter.count }}</td>
+                    <td>{{context.create_date }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <table class="col-12 mt-15 table">
+              <tbody>
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">댓글내용</th>
+                    <th scope="col">검색일자</th>
+                  </tr>
+                </thead>
+                {% for context in comment_list %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{context.content}}</td>
+                    <td>{{context.create_date }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <hr>
+  </div>
+{% endblock %}
