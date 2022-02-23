@@ -157,136 +157,69 @@
         </div>
 
         <!-- ##### Sidebar Area ##### -->
-        <div class="col-12 col-md-4 col-lg-3">
-          <div class="post-sidebar-area">
+        <div class="col-12 col-md-4 col-lg-3 ">
+          <div class="post-sidebar-area ">
 
             <!-- Widget Area -->
             <div class="sidebar-widget-area">
-              <form action="#" class="search-form">
-                <input type="search" name="search" id="searchForm" placeholder="검색">
-                <input type="submit" value="submit">
-              </form>
-            </div>
 
-            <!-- Widget Area -->
-            <div class="sidebar-widget-area">
-              <h5 class="title">최근 게시글</h5>
+              <h5 class="mb-10">최신 게시글</h5>
+              <div class="widget-content col-12">
 
-              <div class="widget-content">
+                {% for side_question in side_question_list %}
+                  <!-- Single Blog Post -->
+                  <div class="single-blog-post d-flex align-items-center widget-post  border-bottom">
 
-                <!-- Single Blog Post -->
-                <div class="single-blog-post d-flex align-items-center widget-post">
-                  <!-- Post Thumbnail -->
+                  {% if side_question.category_id == 1 %}
                   <div class="post-thumbnail">
-                    <img src="{% static 'img/blog-img/lp1.jpg'%}" alt="">
+                    <img src="{% static 'img/bg-img/b1.jpg'%}" alt="">
                   </div>
-                  <!-- Post Content -->
-                  <div class="post-content">
-                    <a href="#" class="post-tag">자유게시판</a>
-                    <h4>
-                      <a href="#" class="post-headline">아름다운 파티 계획</a>
-                    </h4>
-                    <div class="post-meta">
-                      <p>
-                        <a href="#">8 March</a>
-                      </p>
+                  {% else %}
+                  <div class="post-thumbnail">
+                    <img src="{% static 'img/bg-img/bg5.jpg'%}" alt="">
+                  </div>
+                  {% endif%}
+
+                    <!-- Post Content -->
+                    <div class="post-content">
+                      {% if side_question.category_id == 1 %}
+                        <a href="{% url 'FreeBoard:free' %}" class="post-tag">자유게시판</a><br>
+                      {% else %}
+                        <a href="{% url 'FreeBoard:qna' %}" class="post-tag">질문및답변</a><br>
+                      {% endif%}
+                        <a href="{% url 'FreeBoard:detail' side_question.id %}" ><div style="max-height:42px; overflow:hidden;">{{side_question.subject}}</div></a>
+                          <p class="text-danger small " >응답
+                            {{ side_question.comment_set.count }}</p>
                     </div>
                   </div>
+                {% endfor %}
+                </div>
+                <div class="sidebar-widget-area">
+                  <h5 class="title">Tags</h5>
+                  <div class="widget-content">
+                      <ul class="tags">
+                          <li><a href="{% url 'MainBoard:keywordselect' '뺑소니' %}">뺑소니</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '임대차' %}">임대차</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '산재보험' %}">산재보험</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '음주운전' %}">음주운전</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '임금' %}">임금</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '사기' %}">사기</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '자살' %}">자살</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '폭행' %}">폭행</a></li>
+                      </ul>
+                  </div>
+                </div>             
+                 
+                <!-- Widget Area -->
+                <h5 class="">광고 배너</h5>
+                <div class="sidebar-widget-area">
+                  <a href="#"><img src="{% static 'img/bg-img/add.gif' %}" alt=""></a>
                 </div>
 
-                <!-- Single Blog Post -->
-                <div class="single-blog-post d-flex align-items-center widget-post">
-                  <!-- Post Thumbnail -->
-                  <div class="post-thumbnail">
-                    <img src="{% static 'img/blog-img/lp2.jpg'%}" alt="">
-                  </div>
-                  <!-- Post Content -->
-                  <div class="post-content">
-                    <a href="#" class="post-tag">질문게시판</a>
-                    <h4>
-                      <a href="#" class="post-headline">교통사고 블랙박스 효능</a>
-                    </h4>
-                    <div class="post-meta">
-                      <p>
-                        <a href="#">6 March</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
 
-                <!-- Single Blog Post -->
-                <div class="single-blog-post d-flex align-items-center widget-post">
-                  <!-- Post Thumbnail -->
-                  <div class="post-thumbnail">
-                    <img src="{% static 'img/blog-img/lp3.jpg'%}" alt="">
-                  </div>
-                  <!-- Post Content -->
-                  <div class="post-content">
-                    <a href="#" class="post-tag">질문게시판</a>
-                    <h4>
-                      <a href="#" class="post-headline">미성년자 보호법 적용범위</a>
-                    </h4>
-                    <div class="post-meta">
-                      <p>
-                        <a href="#">10 March</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Single Blog Post -->
-                <div class="single-blog-post d-flex align-items-center widget-post">
-                  <!-- Post Thumbnail -->
-                  <div class="post-thumbnail">
-                    <img src="{% static 'img/blog-img/lp4.jpg'%}" alt="">
-                  </div>
-                  <!-- Post Content -->
-                  <div class="post-content">
-                    <a href="#" class="post-tag">자유게시판</a>
-                    <h4>
-                      <a href="#" class="post-headline">여행가기 좋은곳 나열해준다.</a>
-                    </h4>
-                    <div class="post-meta">
-                      <p>
-                        <a href="#">12 March</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
-            <!-- Widget Area -->
-            <div class="sidebar-widget-area">
-              <h5 class="title">Tags</h5>
-              <div class="widget-content">
-                <ul class="tags">
-                  <li>
-                    <a href="#">design</a>
-                  </li>
-                  <li>
-                    <a href="#">fashion</a>
-                  </li>
-                  <li>
-                    <a href="#">travel</a>
-                  </li>
-                  <li>
-                    <a href="#">music</a>
-                  </li>
-                  <li>
-                    <a href="#">party</a>
-                  </li>
-                  <li>
-                    <a href="#">video</a>
-                  </li>
-                  <li>
-                    <a href="#">photography</a>
-                  </li>
-                  <li>
-                    <a href="#">adventure</a>
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
         </div>

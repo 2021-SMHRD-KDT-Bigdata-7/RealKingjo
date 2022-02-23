@@ -217,27 +217,28 @@
                   </div>
                 {% endfor %}
                 </div>
+                <div class="sidebar-widget-area">
+                  <h5 class="title">Tags</h5>
+                  <div class="widget-content">
+                      <ul class="tags">
+                          <li><a href="{% url 'MainBoard:keywordselect' '뺑소니' %}">뺑소니</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '임대차' %}">임대차</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '산재보험' %}">산재보험</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '음주운전' %}">음주운전</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '임금' %}">임금</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '사기' %}">사기</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '자살' %}">자살</a></li>
+                          <li><a href="{% url 'MainBoard:keywordselect' '폭행' %}">폭행</a></li>
+                      </ul>
+                  </div>
+                </div>             
+                 
                 <!-- Widget Area -->
                 <h5 class="">광고 배너</h5>
                 <div class="sidebar-widget-area">
                   <a href="#"><img src="{% static 'img/bg-img/add.gif' %}" alt=""></a>
                 </div>
 
-              <div class="sidebar-widget-area">
-                <h5 class="title">Tags</h5>
-                <div class="widget-content">
-                    <ul class="tags">
-                        <li><a href="{% url 'MainBoard:keywordselect' '뺑소니' %}">뺑소니</a></li>
-                        <li><a href="{% url 'MainBoard:keywordselect' '임대차' %}">임대차</a></li>
-                        <li><a href="{% url 'MainBoard:keywordselect' '산재보험' %}">산재보험</a></li>
-                        <li><a href="{% url 'MainBoard:keywordselect' '음주운전' %}">음주운전</a></li>
-                        <li><a href="{% url 'MainBoard:keywordselect' '임금' %}">임금</a></li>
-                        <li><a href="{% url 'MainBoard:keywordselect' '사기' %}">사기</a></li>
-                        <li><a href="{% url 'MainBoard:keywordselect' '자살' %}">자살</a></li>
-                        <li><a href="{% url 'MainBoard:keywordselect' '폭행' %}">폭행</a></li>
-                    </ul>
-                </div>
-            </div>              
 
               </div>
             </div>
