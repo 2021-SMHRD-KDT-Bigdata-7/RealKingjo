@@ -23,53 +23,53 @@
     <div class="content_block">
     <h5 class="border-bottom pl-2 pb-3 my-2">{{ category.description }}</h5>
     <div class="row justify-content-between my-3">  <!-- 양쪽정렬 justify-content-between로 변경 -->
-        <div class="col-2">
+        <div class="col-lg-2 col-4">
             <select class="form-control so">
                 <option value="recent" {% if so == 'recent' %}selected{% endif %}>최신순</option>
                 <option value="recommend" {% if so == 'recommend' %}selected{% endif %}>추천순</option>
                 <option value="popular" {% if so == 'popular' %}selected{% endif %}>인기순</option>
             </select>
         </div>
-        <div class="col-4 input-group">
+        <div class="col-lg-4 col-8 input-group">
             <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
             </div>
         </div>
     </div>
-    <table class="table">
+    <table class="col-12 mt-15 table">
+        <tbody>
         <thead>
-        <tr class="text-center thead-dark">
-            <th>번호</th>
-            <th>추천</th>
-            <th style="width:50%">제목</th>
-            <th>글쓴이</th>
-            <th>조회수</th>
-            <th>작성일시</th>
+        <tr class="thead-dark">
+            <th class="d-none d-sm-table-cell">번호</th>
+            <th class="d-none d-sm-table-cell">추천</th>
+            <th >제목</th>
+            <th class="d-none d-sm-table-cell">글쓴이</th>
+            <th class="d-none d-sm-table-cell">조회수</th>
+            <th >작성일시</th>
         </tr>
         </thead>
-        <tbody>
         {% if question_list %}
         {% for question in question_list %}
         <tr class="text-center">
-            <td>
+            <td class="d-none d-sm-table-cell">
                 <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
                 {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
             </td>
-            <td>
+            <td class="d-none d-sm-table-cell">
                 {% if question.voter.all.count > 0 %}
                 <span class="badge badge-warning px-2 py-1">{{ question.voter.all.count }}</span>
                 {% endif %}
             </td>
-            <td class="text-left">
+            <td class="text-left" scope="col">
                 <a onclick="{{question.Free_update_counter}}" href="{% url 'FreeBoard:detail' question.id %}" >{{ question.subject }}</a>
                 {% if question.answer_set.count > 0 %}
-    <span class="text-danger small ml-2">{{ question.answer_set.count }}</span>
-    {% endif %}
+                <span class="text-danger small ml-2">{{ question.answer_set.count }}</span>
+                {% endif %}
             </td>
-            <td>{{ question.author.username }}</td>  <!-- 글쓴이 추가 -->
-            <td>{{ question.q_hit }}</td>
-            <td>{{ question.create_date }}</td>
+            <td class="d-none d-sm-table-cell">{{ question.author.username }}</td>  <!-- 글쓴이 추가 -->
+            <td class="d-none d-sm-table-cell">{{ question.q_hit }}</td>
+            <td scope="col">{{ question.create_date }}</td>
         </tr>
         {% endfor %}
         {% else %}
