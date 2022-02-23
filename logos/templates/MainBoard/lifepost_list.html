@@ -90,7 +90,8 @@
                         <img src="{% static 'img/bg-img/bg4.jpg' %}" alt="">
                       {% endif %}
                       <div class="post-date">
-                        <a href="{% url 'MainBoard:lifedetail' life_question.id %}">{{forloop.counter}}
+                        <a href="{% url 'MainBoard:lifedetail' life_question.id %}">
+                          {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
                           <span>번호</span></a>
                       </div>
                     </div>
