@@ -44,14 +44,16 @@
     </div>
     <hr>
     <div class="container">
+      <form class="form" method = "post" action="{% url 'MainBoard:update' %}">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
       <div class="row align-items-top">
-
         <!-- Single Blog Area -->
         <div class="card border-light mb-3 col-12 col-sm-4">
           <div class="card-header text-center bg-white">사용자 정보</div>
           <div class="card-body">
             <p class="card-title m-0">닉네임</p>
-            <h6 class="card-text">{{ user.last_name }}</h6>
+            <input class="form-control" id="last_name" type="text" name="last_name" placeholder="사용자 이름" >
             <p class="card-title m-0">작성 글</p>
             <h6 class="card-text">{{question_list.count}}</h6>
             <p class="card-title m-0">작성 댓글</p>
@@ -68,15 +70,47 @@
           <div class="card-header text-center bg-white">사용자 정보</div>
           <div class="card-body">
             <p class="card-title m-0">전화번호</p>
-            <h6 class="card-text">{{user.phone}}</h6>
+            <input class="form-control" id="phone" type="text" name="phone" placeholder="전화번호"/>
             <p class="card-title m-0">나이</p>
-            <h6 class="card-text">{{user.age}}</h6>
+            <input class="form-control" id="age" type="text" name="age" placeholder="나이"/>
             <p class="card-title m-0">성별</p>
-            <h6 class="card-text">{{user.gender}}</h6>
+            <select class="form-control" name="gender">
+              <option>
+                남자
+              </option>
+              <option>
+                여자
+              </option>                
+            </select>
             <p class="card-title m-0">지역</p>
-            <h6 class="card-text">{{user.location}}</h6>
-            <button onclick="location.href='mypage/update'" class="btn btn-dark col-12">수정</button>
+            <select class="form-control" name="location">
+              <option>
+                서울
+              </option>
+              <option>
+                부산
+              </option>
+              <option>
+                대구
+              </option>
+              <option>
+                인천
+              </option>
+              <option>
+                광주
+              </option>
+              <option>
+                대전
+              </option>
+              <option>
+                울산
+              </option>
+            </select>
+            <button type="submit" class="btn btn-dark col-12">
+              수정
+            </button>
           </div>
+        </form>
         </div>
 
         <!-- Single Blog Area -->

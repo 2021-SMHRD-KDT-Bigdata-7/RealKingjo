@@ -17,6 +17,7 @@ urlpatterns = [
     path('lifepost', lifepost_views.index,name='lifepost'),
     path('join', join_view.index,name='join'),
     path('mypage', mypage_view.index,name='mypage'),
+    path('mypage/update', mypage_view.update,name='update'),
     path('dictionary', dictionary_view.index,name='dictionary'),
     path('status', status_view.index,name='status'),
     path('keyword', keyword_view.index,name='keyword'),

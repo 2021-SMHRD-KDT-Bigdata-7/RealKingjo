@@ -1,6 +1,9 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from common.forms import UserForm
+from .forms import CustomUserChangeForm
+
 # Create your views here.
 
 def signup(request):
@@ -20,7 +23,3 @@ def signup(request):
         form = UserForm()
     return render(request, 'common/join_from.html', {'form': form})
 
-
-
-    
- 
