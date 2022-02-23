@@ -32,7 +32,8 @@ def Logos_Mk1 (a, b) :
 def Law_com():
     Summary= TCriminalSummary.object.all()
     Law = TLaw.objects.filter(law_type=1)
-    Law['law_keyword'], Law['law_type']
+    Law['law_keyword'], Law['law_type'], Law['law_content']
+    
     return Law
     
 
