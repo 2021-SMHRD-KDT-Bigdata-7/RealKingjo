@@ -121,8 +121,8 @@
 </div>
 </div>
 </div>
-{% if category_name == 'free'%}
-<form id="searchForm" method="get" action="{% url 'FreeBoard:index'%}">
+{% if category.name == 'free'%}
+<form id="searchForm" method="get" action="{% url 'FreeBoard:free'%}">
 {% else %}
 <form id="searchForm" method="get" action="{% url 'FreeBoard:qna'%}">
 {% endif %}
