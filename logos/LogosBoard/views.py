@@ -125,8 +125,9 @@ def list(request):
         gram.append(pojo)
     
     gram.sort(key=lambda x:x[1],reverse=True)
+    
     sumlist = []
-    for uns in gram :
+    for uns in gram[0:5] :
         sumlist.append(uns[0])
 
     content ={ "context":context,'brother':brother, "Summary":sumlist[0:10]}
