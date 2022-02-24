@@ -14,8 +14,8 @@ from .forms import lawform
 from common.models import search_log
 from django.shortcuts import render
 from django.utils import timezone
-from django.conf import settings
-User = settings.AUTH_USER_MODEL
+
+from django.contrib.auth import get_user_model
 
 
 def Logos_Mk1 (a, b) :
@@ -102,10 +102,12 @@ def list(request):
     log = search_log()
     if request.user.is_authenticated :
         log.author = request.user
-        log.content = context
-        log.create_date = timezone.now()
-        log.keyword = brother
-        log.save()
+    else :
+        log.author = get_user_model().objects.get(pk=13)
+    log.content = context
+    log.create_date = timezone.now()
+    log.keyword = brother
+    log.save()
     
     content ={"context":context,'brother':brother, "Summary":Summary[0:10]}
     
