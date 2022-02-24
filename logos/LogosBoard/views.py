@@ -12,7 +12,7 @@ from nltk.corpus import stopwords
 from gensim.models.word2vec import Word2Vec
 from .models import TCriminal, TCriminalSummary,TLaw, Synonym
 from .forms import lawform
-from common.models import search_log
+from common.models import search_log 
 from django.shortcuts import render
 from django.utils import timezone
 

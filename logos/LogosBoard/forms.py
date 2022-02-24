@@ -1,3 +1,4 @@
+from cProfile import label
 from django import forms
 from LogosBoard.models import TAd, TCivil, TCriminal, TCriminalSummary, TFamily, TLaw, TLog
 
@@ -10,4 +11,6 @@ class lawform(forms.Form):
     keyword = forms.CharField(widget=forms.Textarea)
     abst = forms.CharField(widget=forms.Textarea)
     law = forms.CharField(widget=forms.Textarea)
+    
+
 

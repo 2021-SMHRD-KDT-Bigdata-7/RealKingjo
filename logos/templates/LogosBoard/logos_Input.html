@@ -2,6 +2,8 @@
 {% block content %}
   {% load FreeBoard_filter %}
   {% load static %}
+<div id='setloader'>
+</div>
 
   <!-- ##### Breadcumb Area Start ##### -->
   <div class="bg-img" style="background-image: url({% static 'img/bg-img/bg5.jpg' %});">
@@ -15,7 +17,8 @@
               <form action="{% url 'Logos:listcon' %}" method = "post">
               {% csrf_token %}
               <textarea name="input" id="input" rows="5" class="col-12" style="font-size: 24px;"></textarea>
-              <input class="btn btn-dark btn-lg btn-block loadingset" id="setloading" type="submit" value="입력하기">
+              <input class="btn btn-dark btn-lg btn-block loadingset" type="submit" value="입력하기">
+              <bottom id="setloading">로딩용<bottom>
               </form>
             </div>
             
@@ -81,5 +84,16 @@
   </div>
   <!-- ##### Blog Wrapper End ##### -->
 
+{% endblock %}
 
+{% block script %}
+<script>
+  $().ready(function () {
+
+    $("#setloading").click(function () {
+      $('<div id="preloader"><div class="preload-content"><div id="original-load"></div></div></div>').appendTo( "#setloader" );
+    });
+
+  });
+</script>
 {% endblock %}
