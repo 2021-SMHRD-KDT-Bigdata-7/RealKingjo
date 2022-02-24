@@ -119,6 +119,10 @@
           <!-- 추천영역 -->
           <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{answer.voter.count}}</div>
           <a href="#" data-uri="{% url 'FreeBoard:vote_answer' answer.id  %}" id="recommend" class="btn btn-sm btn-secondary btn-block my-1">추천</a>
+          {% if request.user == answer.author %}
+          <a href="{% url 'FreeBoard:answer_modify' answer.id  %}" class="btn btn-sm btn-outline-secondary">수정</a>
+          <a href="#" class="delete btn btn-sm btn-outline-secondary " data-uri="{% url 'FreeBoard:answer_delete' answer.id  %}">삭제</a>
+          {% endif %}
         </div>
         <div class="col-11">
           <!-- 답변영역 -->
@@ -140,8 +144,7 @@
               </div>
               {% if request.user == answer.author %}
                 <div class="my-3">
-                  <a href="{% url 'FreeBoard:answer_modify' answer.id  %}" class="btn btn-sm btn-outline-secondary">수정</a>
-                  <a href="#" class="delete btn btn-sm btn-outline-secondary " data-uri="{% url 'FreeBoard:answer_delete' answer.id  %}">삭제</a>
+
                   {% if answer.comment_set.count > 0 %}
                     <div class="mt-3">
                       {% for comment in answer.comment_set.all %}
