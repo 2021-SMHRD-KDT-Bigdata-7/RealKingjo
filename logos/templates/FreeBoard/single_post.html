@@ -95,7 +95,7 @@
                       <!-- Comment Meta -->
                       <div class="comment-meta mt-15 border-bottom">
                         <p class="m-0">
-                          <a name="comment_{{ comment.id }}">{{ comment.author }}</a>
+                          <a name="comment_{{ comment.id }}">{{ comment.author.last_name }}</a>
                           {{ comment.create_date }}
                           {% if request.user == comment.author %}
                           <a href="{% url 'FreeBoard:comment_modify_question' comment.id  %}" class="small">수정</a>,
@@ -172,7 +172,7 @@
                         <div class="comment py-2 text-muted">
                           <span style="white-space: pre-line;">{{ comment.content }}</span>
                           <span>
-                            {{ comment.author }},
+                            {{ comment.author.last_name }},
                             {{ comment.create_date }}
                             {% if comment.modify_date %}
                               (수정:{{ comment.modify_date }})
