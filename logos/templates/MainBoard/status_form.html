@@ -31,7 +31,7 @@
       <div class="row mt-3">
 
         <!--4칸 시작-->
-        <div class="col-lg-3 col-12">
+        <div class="col-12">
           <div class="card mb-15">
             <div class="card-body">
               <h4 class="card-title">키워드 검색량</h4>
@@ -39,31 +39,12 @@
 
                 <table class="col-12 mt-15 table-sm">
                   <tbody>
-                    <thead class="thead-dark">
-                      <tr>
-                        <th class="col-4 text-center" scope="col">순위</th>
-                        <th class="col-8 text-center" scope="col">키워드</th>
-                      </tr>
-                    </thead>
                     <tr>
-                      <td class="text-center">1</td>
-                      <td class="text-center">search</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center">2</td>
-                      <td class="text-center">real</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center">3</td>
-                      <td class="text-center">Objects</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center">4</td>
-                      <td class="text-center">illegal</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center">5</td>
-                      <td class="text-center">Study</td>
+                      <td class="text-center">1. abuse</td>
+                      <td class="text-center">2. illegal</td>
+                      <td class="text-center">3. doing</td>
+                      <td class="text-center">4. really</td>
+                      <td class="text-center">5. ask</td>
                     </tr>
                   </tbody>
                 </table>
@@ -73,26 +54,33 @@
           </div>
         </div>
         <!--4칸 끝-->
+        
 
-        <!--8칸 시작-->
-        <div class="col-lg-9 col-12">
+      </div>
+
+      <div class="row mt-3">
+
+        <!--12칸 시작-->
+        <div class="col-12">
           <div class="card mb-15">
             <div class="card-body">
-
               <h4 class="card-title">최근 검색 내역</h4>
-
-              <table class="col-12 mt-15 table">
+              <table class="col-12 mt-15 table" style="overflow:auto">
                 <tbody>
                   <thead class="thead-dark">
                     <tr>
-                      <th class="col-6">검색내용</th>
-                      <th class="col-6">키워드</th>
+                      <th class="col-5" >검색내용</th>
+                      <th class="col-3 d-none d-sm-table-cell" >키워드</th>
+                      <th class="col-1">작성자</th>
+                      <th class="col-2 d-none d-sm-table-cell" >작성일자</th>
                     </tr>
                   </thead>
                   {% for log in log_top %}
                   <tr>
-                    <td >{{log.content}}</td>
-                    <td >{{log.keyword}}</td>
+                    <td class="col-5" style="overflow-x:hidden;">{{log.content}}</td>
+                    <td class="col-3 d-none d-sm-table-cell">{{log.keyword}}</td>
+                    <td class="col-1"style="overflow-x:hidden;">{{log.author}}</td>
+                    <td class="col-2 d-none d-sm-table-cell">{{log.create_date}}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -102,8 +90,8 @@
           </div>
         </div>
         <!--8칸 끝-->
-
       </div>
+
 
       <div class="row mt-3">
         <!--3칸 시작 -->

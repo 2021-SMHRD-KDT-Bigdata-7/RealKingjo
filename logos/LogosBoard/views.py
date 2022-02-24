@@ -4,19 +4,21 @@ from nltk.tag import pos_tag
 
 
 from nltk.corpus import stopwords
+from numpy import append
 
 import requests
 from nltk.corpus import stopwords  
 
 from gensim.models.word2vec import Word2Vec
-from .models import TCriminal, TCriminalSummary,TLaw,SYNONYM
+from .models import TCriminal, TCriminalSummary,TLaw, Synonym
 from .forms import lawform
 from common.models import search_log
 from django.shortcuts import render
 from django.utils import timezone
 
 from django.contrib.auth import get_user_model
-
+from konlpy.tag import Kkma
+kkma = Kkma()
 
 def Logos_Mk1 (a, b) :
   
@@ -97,7 +99,6 @@ def list(request):
     
     
     context = request.POST.get('input')
-    Summary = TCriminalSummary.objects.all()
     brother=Compare2(context)
     log = search_log()
     if request.user.is_authenticated :
@@ -109,7 +110,26 @@ def list(request):
     log.keyword = brother
     log.save()
     
-    content ={"context":context,'brother':brother, "Summary":Summary[0:10]}
+    gram = []
+    Summary = TCriminalSummary.objects.all()
+    keytoken = kkma.nouns(context)
+    for Sum in Summary:
+        pojo=[]
+        pojo.append(Sum)
+        pojo.append(0)
+        
+        for token in keytoken:
+            if token in Sum.cri_sum_content :
+                pojo[1] +=1
+        
+        gram.append(pojo)
+    
+    gram.sort(key=lambda x:x[1],reverse=True)
+    sumlist = []
+    for uns in gram :
+        sumlist.append(uns[0])
+
+    content ={ "context":context,'brother':brother, "Summary":sumlist[0:10]}
     
     return render(request, 'LogosBoard/logos_List.html', content)
 

@@ -70,14 +70,22 @@ class TLog(models.Model):
         managed = False
         db_table = 't_log'
 
-class STOPWORD(models.Model):
+class Stopword(models.Model):
     word_seq = models.AutoField(primary_key=True)
-    word_content= models.CharField(max_length=200)
+    word_content = models.CharField(max_length=200)
+
+    class Meta:
+        managed = False
+        db_table = 'logosboard_stopword'
     
-class SYNONYM(models.Model):
+class Synonym(models.Model):
     syn_seq = models.AutoField(primary_key=True)
-    syn_content=models.CharField(max_length=200)
-    
+    syn_content = models.CharField(max_length=200)
+
+    class Meta:
+        managed = False
+        db_table = 'logosboard_synonym'
+        
 class TCriminalSummary(models.Model):
     cri_seq = models.OneToOneField(TCriminal, models.DO_NOTHING, db_column='cri_seq', primary_key=True)
     cri_subj = models.CharField(max_length=200)
