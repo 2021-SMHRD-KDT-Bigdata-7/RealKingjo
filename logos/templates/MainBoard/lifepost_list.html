@@ -108,7 +108,7 @@
                         </div>
                         <div class="post-meta">
                           <p>작성자
-                            <a href="#">{{ life_question.author.username }}</a>
+                            <a href="#">{{ life_question.author.last_name }}</a>
                           </p>
 
                         </div>
@@ -250,6 +250,7 @@
     </div>
     <!-- ##### Blog Wrapper End ##### -->
   {% endblock %}
+  
   {% block script %}
     <script type='text/javascript'>
       $(document).ready(function () {
