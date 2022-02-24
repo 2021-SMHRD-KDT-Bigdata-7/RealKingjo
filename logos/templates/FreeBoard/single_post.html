@@ -49,7 +49,7 @@
               </h4>
               <div class="post-meta mb-15">
                 <p>작성자
-                  <a href="#">{{question.author.username}}</a>
+                  <a href="#">{{question.author.last_name}}</a>
                 </p>
                 <p>{{question.answer_set.count}}
                   답변</p>
@@ -157,7 +157,7 @@
                     </div>
                   {% endif %}
                   <div class="badge badge-light p-2 text-left">
-                    <div class="mb-2">{{ answer.author.username }}</div>
+                    <div class="mb-2">{{ answer.author.last_name }}</div>
                     <div>{{ answer.create_date }}</div>
                   </div>
                 </div>
