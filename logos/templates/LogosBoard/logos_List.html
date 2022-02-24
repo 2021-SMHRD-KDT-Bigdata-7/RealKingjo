@@ -60,16 +60,19 @@
                 <div class="row col-10">
                   <div class="bg-danger text-white text-center" style="font-weight:bold; border-radius: 2px;width:58px;;height:24px">형사</div>
                   <button class="col-10" type="submit" style="font-size:18px; background-color:transparent; border:None;">
-                    {{ i.cri_subj}}
+                    {% autoescape off %}
+                    {{i.cri_subj}}
+                    {% endautoescape %}
                     
                 </div>
                 <div class="col-2">
-                  <a href="#" data-toggle="tooltip" data-placement="bottom" class="col align-self-end" title="{{ i.cri_sum_abst }}">주문</a>
+                  <a href="#" data-toggle="tooltip" data-placement="bottom" class="col align-self-end" title="{{ i.cri_sum_abst|striptags }}">주문</a>
                 </div>
               </div>
-              <p style="font-weight:bold; margin:0 0 15px 0; color : rgb(57, 95, 223);">{{i.cri_seq.cri_subj}}</p>
-              <p style="max-height: 60px; overflow:hidden; margin:15px">{{ i.cri_sum_content }}</p>
+              <p style="font-weight:bold; margin:0 0 15px 0; color : rgb(57, 95, 223);">{{i.cri_seq.cri_subj|striptags}}</p>
+              <p style="max-height: 60px; overflow:hidden; margin:15px">{{ i.cri_sum_content|striptags }}</p>
               <p>15 응답</p>
+              
               </form>
             </div>
             <hr>

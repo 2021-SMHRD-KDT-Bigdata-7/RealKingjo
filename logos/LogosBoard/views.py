@@ -105,7 +105,7 @@ def list(request):
         if request.user.is_authenticated :
             log.author = request.user
         else :
-            log.author = get_user_model().objects.get(pk=13)
+            log.author = get_user_model().objects.get(pk=16)
         log.content = context
         log.create_date = timezone.now()
         log.keyword = brother
