@@ -14,9 +14,8 @@ from .forms import lawform
 from common.models import search_log
 from django.shortcuts import render
 from django.utils import timezone
-
-
-
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
 
 
 def Logos_Mk1 (a, b) :
@@ -101,11 +100,12 @@ def list(request):
     Summary = TCriminalSummary.objects.all()
     brother=Compare2(context)
     log = search_log()
-    log.author = request.user
-    log.content = context
-    log.create_date = timezone.now()
-    log.keyword = brother
-    log.save()
+    if request.user.is_authenticated :
+        log.author = request.user
+        log.content = context
+        log.create_date = timezone.now()
+        log.keyword = brother
+        log.save()
     
     content ={"context":context,'brother':brother, "Summary":Summary[0:10]}
     
