@@ -26,14 +26,14 @@
       <div class="row align-items-center section-padding-30">
         <div class="col-lg-2 col-1"></div>
         <div class="col-lg-8 col-10 ">
-          <form id="searchForm">
+          
           <div class="input-group mb-3">
             <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}" placeholder="법률용어 검색하기" aria-label="sc" aria-describedby="basic-addon2" style="font-size:30px;">
             <div class="input-group-append">
-              <button class="btn btn-secondary" id="btn_search" >검색하기</button>
+              <button class="btn btn-secondary" type="button" id="btn_search" >검색하기</button>
             </div>
           </div>
-        </form>
+        
           <hr style="border:solid 3px;">
         </div>
       </div>
@@ -48,8 +48,8 @@
       <table class="col-12">
         <tbody>
 
+          {% if search_list%}
           {% for Search_db in search_list %}
-            {% if search_list%}
               <tr class="row border align-items-center mb-3 col-12">
 
                 <th class="col-2">
@@ -62,8 +62,8 @@
                   </div>
                 </td>
               </tr>
+              {% endfor %}
               {% endif%}
-            {% endfor %}
           </tbody>
         </table>
         <div class="col-12">
@@ -72,7 +72,7 @@
             <!-- 이전페이지 -->
             {% if search_list.has_previous %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ search_list.previous_page_number }}">이전</a>
+                <a class="page-link" data-page="{{ search_list.previous_page_number }}" href="#">이전</a>
               </li>
             {% else %}
               <li class="page-item disabled">
@@ -84,11 +84,11 @@
               {% if page_number >= search_list.number|add:-5 and page_number <= search_list.number|add:5 %}
                 {% if page_number == search_list.number %}
                   <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
                   </li>
                 {% else %}
                   <li class="page-item">
-                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
                   </li>
                 {% endif %}
               {% endif %}
@@ -96,7 +96,7 @@
             <!-- 다음페이지 -->
             {% if search_list.has_next %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ search_list.next_page_number }}">다음</a>
+                <a class="page-link" data-page="{{ search_list.next_page_number }}" href="#">다음</a>
               </li>
             {% else %}
               <li class="page-item disabled">
@@ -110,23 +110,25 @@
       <hr>
     </div>
   </div>
+  <form id="searchForm" method="get" action="{% url 'MainBoard:dictionary' %}">
+    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+    <input type="hidden" id="page" name="page" value="{{ page }}">
+</form>
 {% endblock %}
 
 {% block script %}
-
-  <script type='text/javascript'>
-    $(document).ready(function () {
-      $(".page-link").on('click', function () {
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".page-link").on('click', function() {
         $("#page").val($(this).data("page"));
         $("#searchForm").submit();
-      });
-
-      $("#btn_search").on('click', function () {
-        $(".kw").val($(".kw").val());
-        $("#page").val(1); // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
-        $("#searchForm").submit();
-      });
     });
-  </script>
 
+    $("#btn_search").on('click', function() {
+        $("#kw").val($(".kw").val());
+        $("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+        $("#searchForm").submit();
+    });
+});
+</script>
 {% endblock %}
