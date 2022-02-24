@@ -162,7 +162,7 @@
                   </div>
                 </div>
                 <div class="">
-                  {% if request.user == answer.author %}
+
                 <div class="my-3">
                   <h6 class="title m-0">댓글</h6>
                   {% if answer.comment_set.count > 0 %}
@@ -172,7 +172,6 @@
                         <div class="comment py-2 text-muted">
                           <span style="white-space: pre-line;">{{ comment.content }}</span>
                           <span>
-                            -
                             {{ comment.author }},
                             {{ comment.create_date }}
                             {% if comment.modify_date %}
@@ -188,7 +187,6 @@
                     </div>
                   {% endif %}
                 </div>
-              {% endif %}
 
                   <!--댓글 등록 창 시작-->
                   <div class="container my-3">
