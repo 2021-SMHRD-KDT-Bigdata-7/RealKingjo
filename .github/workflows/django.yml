@@ -26,4 +26,4 @@ jobs:
       env :
         DJANGO_ADDRPORT : ${{secrets.DJANGO_ADDRPORT}}
       run: |
-        python RealKingjo/manage.py runserver $DJANGO_ADDRPORT # 서버실행
+        python RealKingjo/logos/manage.py runserver $DJANGO_ADDRPORT # 서버실행
