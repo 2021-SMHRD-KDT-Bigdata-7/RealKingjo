@@ -10,7 +10,7 @@ class TAd(models.Model):
     ad_subj = models.CharField(max_length=200)
 
     class Meta:
-        managed = False
+        
         db_table = 't_ad'
 
 
@@ -21,7 +21,7 @@ class TCivil(models.Model):
     civ_subj = models.CharField(max_length=200)
 
     class Meta:
-        managed = False
+        
         db_table = 't_civil'
 
 
@@ -32,7 +32,7 @@ class TCriminal(models.Model):
     cri_subj = models.CharField(max_length=200)
 
     class Meta:
-        managed = False
+        
         db_table = 't_criminal'
 
 
@@ -43,7 +43,7 @@ class TFamily(models.Model):
     fam_content = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 't_family'
 
 
@@ -95,5 +95,5 @@ class TCriminalSummary(models.Model):
     ref_law = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 't_criminal_summary'
