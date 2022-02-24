@@ -53,7 +53,7 @@
                 </div>
               {% endif %}
               <div class="badge badge-light p-2 text-left">
-                <div class="mb-2">{{ question.author.username }}</div>
+                <div class="mb-2">{{ question.author.last_name }}</div>
                 <div>{{ question.create_date }}</div>
               </div>
             </div>
@@ -134,7 +134,7 @@
                   </div>
                 {% endif %}
                 <div class="badge badge-light p-2 text-left">
-                  <div class="mb-2">{{ answer.author.username }}</div>
+                  <div class="mb-2">{{ answer.author.last_name }}</div>
                   <div>{{ answer.create_date }}</div>
                 </div>
               </div>
