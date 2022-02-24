@@ -11,3 +11,10 @@ class User(AbstractUser):
     gender = models.CharField(max_length=2, blank=True, null=True)
     location = models.CharField(max_length=30, blank=True, null=True)
     
+        
+class search_log(models.Model) :
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    keyword = models.TextField()
+    create_date = models.DateTimeField()
+    

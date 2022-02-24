@@ -55,11 +55,11 @@
                 <input name="law" type="hidden" value="{{i.ref_law}}">
 
               <div class="row justify-content-between">
-                <div class="row">
-                  <span class="col-1 bg-danger text-white" style="font-weight:bold; border-radius: 2px">형사</span>
-                  <button class="col-11" type="submit" style="font-size:18px">{{ i.cri_subj }}</button>
+                <div class="row col-10">
+                  <div class="bg-danger text-white text-center" style="font-weight:bold; border-radius: 2px;width:58px;;height:24px">형사</div>
+                  <button class="col-10" type="submit" style="font-size:18px; background-color:transparent; border:None;">{{ i.cri_subj|linebreaksbr }}</button>
                 </div>
-                <div>
+                <div class="col-2">
                   <a href="#" data-toggle="tooltip" data-placement="bottom" class="col align-self-end" title="{{ i.cri_sum_abst }}">주문</a>
                 </div>
               </div>

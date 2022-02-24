@@ -1,3 +1,4 @@
+from ast import keyword
 from django.db import models
 from django.conf import settings
 User = settings.AUTH_USER_MODEL
@@ -47,6 +48,12 @@ class life_Comment(models.Model):
     modify_date = models.DateTimeField(null=True, blank=True)
     address = models.IntegerField()
     life_question = models.ForeignKey(life_Question, null=True, blank=True,  on_delete=models.CASCADE)
+    
+    
+
+    
+    
+    
     
 
 

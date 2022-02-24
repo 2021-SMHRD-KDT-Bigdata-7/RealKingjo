@@ -41,29 +41,29 @@
                   <tbody>
                     <thead class="thead-dark">
                       <tr>
-                        <th scope="col">순위</th>
-                        <th class="d-none d-sm-block" scope="col">키워드</th>
+                        <th class="col-4 text-center" scope="col">순위</th>
+                        <th class="col-8 text-center" scope="col">키워드</th>
                       </tr>
                     </thead>
                     <tr>
-                      <td >1</td>
-                      <td >지급</td>
+                      <td class="text-center">1</td>
+                      <td class="text-center">search</td>
                     </tr>
                     <tr>
-                      <td >2</td>
-                      <td >청구</td>
+                      <td class="text-center">2</td>
+                      <td class="text-center">real</td>
                     </tr>
                     <tr>
-                      <td >3</td>
-                      <td >대화</td>
+                      <td class="text-center">3</td>
+                      <td class="text-center">Objects</td>
                     </tr>
                     <tr>
-                      <td >4</td>
-                      <td >구두</td>
+                      <td class="text-center">4</td>
+                      <td class="text-center">illegal</td>
                     </tr>
                     <tr>
-                      <td >5</td>
-                      <td >폭행</td>
+                      <td class="text-center">5</td>
+                      <td class="text-center">Study</td>
                     </tr>
                   </tbody>
                 </table>
@@ -85,22 +85,16 @@
                 <tbody>
                   <thead class="thead-dark">
                     <tr>
-                      <th scope="col">검색내용</th>
-                      <th class="d-none d-sm-block" scope="col">키워드</th>
+                      <th class="col-6">검색내용</th>
+                      <th class="col-6">키워드</th>
                     </tr>
                   </thead>
+                  {% for log in log_top %}
                   <tr>
-                    <td >아르바이트로 야간근무를 6시간 도와주었는데 야간보너스를 지급하지 않습니다.</td>
-                    <td class="d-none d-sm-block">아르바이트 , 야간 , 근무 , 보너스 , 지급</td>
+                    <td >{{log.content}}</td>
+                    <td >{{log.keyword}}</td>
                   </tr>
-                  <tr>
-                    <td>동생집에 말없이 들어간 것이 무단침입죄에 해당되나요?</td>
-                    <td class="d-none d-sm-block">무단침입 , 집 , 동생집, 말없이, 들어간</td>
-                  </tr>
-                  <tr>
-                    <td>일을 적게했다고 지정된 월급보다 적은돈을 받는게 가능한 가요?</td>
-                    <td class="d-none d-sm-block">월급 , 지정된 , 일 , 적게 , 가능</td>
-                  </tr>
+                  {% endfor %}
                 </tbody>
               </table>
 
@@ -120,7 +114,7 @@
                 <div class="card-body">
                   <h4 class="card-title">월 방문자 수</h4>
                   <p>지날 달 대비 23% 증가</p>
-                  <h4 class="text-dark font-weight-bold mb-2">23,981</h4>
+                  <h4 class="text-dark font-weight-bold mb-2">328</h4>
                 </div>
               </div>
             </div>
@@ -129,7 +123,7 @@
                 <div class="card-body">
                   <h4 class="card-title">월 검색 량</h4>
                   <p>지난달 대비 6% 증가 </p>
-                  <h4 class="text-dark font-weight-bold mb-2">55,543</h4>
+                  <h4 class="text-dark font-weight-bold mb-2">{{1633|add:log_list.count}}</h4>
                 </div>
               </div>
             </div>
@@ -252,24 +246,24 @@
       var data = [
         {
           day: "2022-02-20",
-          income: 23.5,
-          expenses: 21.1
+          income: 24,
+          expenses: 21
         }, {
           day: "2022-02-21",
-          income: 26.2,
-          expenses: 30.5
+          income: 26,
+          expenses: 30
         }, {
           day: "2022-02-22",
-          income: 30.1,
-          expenses: 34.9
+          income: 30,
+          expenses: 35
         }, {
           day: "2022-02-23",
-          income: 29.5,
-          expenses: 31.1
+          income: 30,
+          expenses: 31
         }, {
           day: "2022-02-24",
-          income: 30.6,
-          expenses: 28.2,
+          income: 31,
+          expenses: 29,
           strokeSettings: {
             stroke: chart
               .get("colors")
@@ -279,8 +273,8 @@
           }
         }, {
           day: "2022-02-25",
-          income: 34.1,
-          expenses: 32.9,
+          income: 35,
+          expenses: 33,
           columnSettings: {
             strokeWidth: 1,
             strokeDasharray: [5],

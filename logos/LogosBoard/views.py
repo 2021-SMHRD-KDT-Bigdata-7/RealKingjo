@@ -9,12 +9,11 @@ import requests
 from nltk.corpus import stopwords  
 
 from gensim.models.word2vec import Word2Vec
-from .models import TCriminal
-from .models import TCriminalSummary
-from .models import TLaw
-from .models import SYNONYM
+from .models import TCriminal, TCriminalSummary,TLaw,SYNONYM
 from .forms import lawform
+from common.models import search_log
 from django.shortcuts import render
+from django.utils import timezone
 
 
 
@@ -100,9 +99,14 @@ def list(request):
     
     context = request.POST.get('input')
     Summary = TCriminalSummary.objects.all()
-
-    
     brother=Compare2(context)
+    log = search_log()
+    log.author = request.user
+    log.content = context
+    log.create_date = timezone.now()
+    log.keyword = brother
+    log.save()
+    
     content ={"context":context,'brother':brother, "Summary":Summary[0:10]}
     
     return render(request, 'LogosBoard/logos_List.html', content)
