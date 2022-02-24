@@ -23,12 +23,13 @@
 
   <body>
     <!-- Preloader -->
-    <div id="preloader">
-      <div class="preload-content">
-        <div id="original-load"></div>
+    <div id="setloader">
+      <div id="preloader">
+        <div class="preload-content">
+          <div id="original-load"></div>
+        </div>
       </div>
     </div>
-
     <!-- Subscribe Modal -->
     <div class="subscribe-newsletter-area">
       <div class="modal fade bd-example-modal-lg" id="subsModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -47,7 +48,6 @@
           </div>
         </div>
       </div>
-
 
       <!-- ##### Header Area Start ##### -->
       <header class="header-area">
@@ -84,18 +84,26 @@
               <!-- Top Social Area -->
               <div class="col-lg-8 col-12">
                 <div class="top-social-area">
-                    {% if user.is_authenticated %}
-                      <div class="row justify-content-end">
-                        <div style="margin:5px 12px 0 12px">{{ user.last_name }}님 환영합니다</div>
-                        <div style="margin:0 12px 0 12px"> <a class="btn btn-dark btn-sm " href="{% url 'MainBoard:mypage' %}" style="color:white">마이페이지</a></div> 
-                        <div style="margin:0 12px 0 12px"> <a class="btn btn-dark btn-sm " href="{% url 'common:logout' %}" style="color:white">로그아웃</a></div> 
-                      </div>
-                    {% else %}
+                  {% if user.is_authenticated %}
                     <div class="row justify-content-end">
-                      <div style="margin:0 12px 0 12px"> <a class="btn btn-dark btn-sm " href="{% url 'common:login' %}" style="color:white">로그인</a></div> 
-                      <div style="margin:0 12px 0 12px"> <a class="btn btn-dark btn-sm " href="{% url 'common:join' %}" style="color:white">회원가입</a></div> 
+                      <div style="margin:5px 12px 0 12px">{{ user.last_name }}님 환영합니다</div>
+                      <div style="margin:0 12px 0 12px">
+                        <a class="btn btn-dark btn-sm " href="{% url 'MainBoard:mypage' %}" style="color:white">마이페이지</a>
+                      </div>
+                      <div style="margin:0 12px 0 12px">
+                        <a class="btn btn-dark btn-sm " href="{% url 'common:logout' %}" style="color:white">로그아웃</a>
+                      </div>
                     </div>
-                    {% endif %}
+                  {% else %}
+                    <div class="row justify-content-end">
+                      <div style="margin:0 12px 0 12px">
+                        <a class="btn btn-dark btn-sm " href="{% url 'common:login' %}" style="color:white">로그인</a>
+                      </div>
+                      <div style="margin:0 12px 0 12px">
+                        <a class="btn btn-dark btn-sm " href="{% url 'common:join' %}" style="color:white">회원가입</a>
+                      </div>
+                    </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -155,16 +163,15 @@
                       </li>
                       <li>
 
-                          <li>
-                            <a href="{% url 'FreeBoard:free' %}">자유광장</a>
-                          </li>
-                          <li>
-                            <a href="{% url 'FreeBoard:qna' %}">질문및답변</a>
-                          </li>
-                          <li>
-                            <a href="{% url 'MainBoard:lifepost' %}">생활 법률</a>
-                          </li>
-
+                      <li>
+                        <a href="{% url 'FreeBoard:free' %}">자유광장</a>
+                      </li>
+                      <li>
+                        <a href="{% url 'FreeBoard:qna' %}">질문및답변</a>
+                      </li>
+                      <li>
+                        <a href="{% url 'MainBoard:lifepost' %}">생활 법률</a>
+                      </li>
 
                       <li>
                         <a href="#">사이트 정보</a>
@@ -284,21 +291,21 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                       <ul>
-                      <li>
-                        <a href="{% url 'MainBoard:lifepost' %}">생활 법률 정보</a>
-                      </li>
-                      <li>
-                        <a href="{% url 'Logos:userinput' %}">판례 검색 기능</a>
-                      </li>
-                      <li>
-                        <a href="{% url 'FreeBoard:qna' %}">질의응답 작성</a>
-                      </li>
-                      <li>
-                        <a href="{% url 'MainBoard:dictionary' %}">법률용어 사전</a>
-                      </li>
-                      <li>
-                        <a href="{% url 'MainBoard:keyword' %}">키워드 분석 통계</a>
-                      </li>
+                        <li>
+                          <a href="{% url 'MainBoard:lifepost' %}">생활 법률 정보</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'Logos:userinput' %}">판례 검색 기능</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'FreeBoard:qna' %}">질의응답 작성</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'MainBoard:dictionary' %}">법률용어 사전</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'MainBoard:keyword' %}">키워드 분석 통계</a>
+                        </li>
                       </ul>
                     </div>
                     <!-- Nav End -->
@@ -308,39 +315,41 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-        킹조 프로젝트 :  AI기반 사용자입력 판례 매칭 서비스 <script>
-          document.write(new Date().getFullYear());
-        </script>
-
-
-      </footer>
-      <!-- ##### Footer Area End ##### -->
-      <!-- jQuery (Necessary for All JavaScript Plugins) -->
-
-      <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
-      <!-- Popper js -->
-      <script src="{% static 'js/popper.min.js' %}"></script>
-      <!-- Bootstrap js -->
-      <script src="{% static 'js/bootstrap.min.js' %}"></script>
-      <!-- Plugins js -->
-      <script src="{% static 'js/plugins.js' %}"></script>
-      <!-- Active js -->
-      <script src="{% static 'js/active.js' %}"></script>
-      <!-- 자바스크립트 Start -->
-      {% block script %}{% endblock %}
-      <!-- 자바스크립트 End -->
-
+      <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+      킹조 프로젝트 : AI기반 사용자입력 판례 매칭 서비스
       <script>
-        $().ready(function () {
-          $("#alertStart").click(function () {
-            if () 
-              Swal.fire({icon: 'error', title: '로그인 실패', text: '아이디 버번을 확인하여 주세요', footer: '<a href="">혹시 회원가입이 필요하신가요?</a>'})
-          });
-        });
+        document.write(new Date().getFullYear());
       </script>
 
-    </body>
+    </footer>
+  </body>
 
-  </html>
+</html>
+<!-- ##### Footer Area End ##### -->
+<!-- jQuery (Necessary for All JavaScript Plugins) -->
+{% block script %}
+  <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+  <!-- Popper js -->
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <!-- Bootstrap js -->
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <!-- Plugins js -->
+  <script src="{% static 'js/plugins.js' %}"></script>
+  <!-- Active js -->
+  <script src="{% static 'js/active.js' %}"></script>
+  <!-- 자바스크립트 Start -->
+
+  <!-- 자바스크립트 End -->
+
+  <script>
+    $().ready(function () {
+
+      $("#setloading").click(function () {
+        $('<div id="setloader"><div id="preloader"><div class="preload-content"><div id="original-load"></div></div></div></div>').appendTo( "#setloader" );
+      });
+
+    });
+  </script>
+{% endblock %}

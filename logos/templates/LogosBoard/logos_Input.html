@@ -15,10 +15,10 @@
               <form action="{% url 'Logos:listcon' %}" method = "post">
               {% csrf_token %}
               <textarea name="input" id="input" rows="5" class="col-12" style="font-size: 24px;"></textarea>
-              <input class="btn btn-dark btn-lg btn-block"  type="submit" value="입력하기">
+              <input class="btn btn-dark btn-lg btn-block loadingset" id="setloading" type="submit" value="입력하기">
               </form>
             </div>
-
+            
             <div style="color: aliceblue;  background-color: #000000; margin:50px ;border-radius:20px">
               <h4 style="color: aliceblue;">검색 방법 이렇게 하세요</h4>
               <p>자신의 상황을 설명하는 핵심 단어를 적어주세요</p>
@@ -31,7 +31,7 @@
     </div>
   </div>
   <!-- ##### Breadcumb Area End ##### -->
-
+  
   <!-- ##### Blog Wrapper Start ##### -->
   <div class="blog-wrapper section-padding-100-0 clearfix">
     <div class="container">

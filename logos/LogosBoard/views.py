@@ -127,10 +127,10 @@ def list(request):
     gram.sort(key=lambda x:x[1],reverse=True)
     
     sumlist = []
-    for uns in gram[0:5] :
+    for uns in gram[0:10] :
         sumlist.append(uns[0])
 
-    content ={ "context":context,'brother':brother, "Summary":sumlist[0:10]}
+    content ={ "context":context,'brother':brother, "Summary":sumlist}
     
     return render(request, 'LogosBoard/logos_List.html', content)
 

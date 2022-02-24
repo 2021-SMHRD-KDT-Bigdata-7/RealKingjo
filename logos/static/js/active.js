@@ -6,9 +6,13 @@
     // :: Preloader Active Code
     $window.on('load', function () {
         $('#preloader').fadeOut('slow', function () {
-            $(this).remove();
+            $(this).hide();
         });
     });
+
+    
+
+
 
     // :: Nav Active Code
     if ($.fn.classyNav) {
