@@ -13,4 +13,5 @@ class lawform(forms.Form):
     law = forms.CharField(widget=forms.Textarea)
     
 
-
+class lawarea(forms.Form):
+    input = forms.CharField(widget=forms.Textarea)

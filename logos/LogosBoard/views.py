@@ -11,7 +11,7 @@ from nltk.corpus import stopwords
 
 from gensim.models.word2vec import Word2Vec
 from .models import TCriminal, TCriminalSummary,TLaw, Synonym
-from .forms import lawform
+from .forms import lawform ,lawarea
 from common.models import search_log 
 from django.shortcuts import render
 from django.utils import timezone
@@ -97,43 +97,47 @@ def input(request):
 
 def list(request):
     
-    
-    context = request.POST.get('input')
-    brother=Compare2(context)
-    log = search_log()
-    if request.user.is_authenticated :
-        log.author = request.user
-    else :
-        log.author = get_user_model().objects.get(pk=13)
-    log.content = context
-    log.create_date = timezone.now()
-    log.keyword = brother
-    log.save()
-    
-    gram = []
-    Summary = TCriminalSummary.objects.all()
-    keytoken = kkma.nouns(context)
-    for Sum in Summary:
-        pojo=[]
-        pojo.append(Sum)
-        pojo.append(0)
+    form = lawarea(request.POST)
+    if form.is_valid():
+        context = form.data['input']
+        brother=Compare2(context)
+        log = search_log()
+        if request.user.is_authenticated :
+            log.author = request.user
+        else :
+            log.author = get_user_model().objects.get(pk=13)
+        log.content = context
+        log.create_date = timezone.now()
+        log.keyword = brother
+        log.save()
         
-        for token in keytoken:
-            if token in Sum.cri_sum_content :
-                pojo[1] +=1
+        gram = []
+        Summary = TCriminalSummary.objects.all()
+        keytoken = kkma.nouns(context)
+        for Sum in Summary:
+            pojo=[]
+            pojo.append(Sum)
+            pojo.append(0)
+            
+            for token in keytoken:
+                if token in Sum.cri_sum_content :
+                    pojo[1] +=1
+            
+            gram.append(pojo)
         
-        gram.append(pojo)
-    
-    gram.sort(key=lambda x:x[1],reverse=True)
-    
-    sumlist = []
-    for uns in gram[0:10] :
-        sumlist.append(uns[0])
+        gram.sort(key=lambda x:x[1],reverse=True)
+        
+        sumlist = []
+        for uns in gram[0:10] :
+            sumlist.append(uns[0])
 
-    content ={ "context":context,'brother':brother, "Summary":sumlist}
+        content ={ "context":context,'brother':brother, "Summary":sumlist}
+        
+        return render(request, 'LogosBoard/logos_List.html', content)
     
-    return render(request, 'LogosBoard/logos_List.html', content)
-
+    else:
+        return render(request, 'LogosBoard/logos_Input.html', {'form': form})
+    
 
 def kr2en (Usertoken) :
     url = "https://dapi.kakao.com/v2/translation/translate"
