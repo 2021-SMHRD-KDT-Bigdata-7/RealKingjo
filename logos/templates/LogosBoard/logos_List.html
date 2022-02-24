@@ -43,11 +43,21 @@
           
           <div class="single-blSummary %og-area blog-style-2 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1000ms">
             <div class="container">
+              <form action="{% url 'Logos:listdetail' %}" method="post">
+                {% csrf_token %}
+                {% include "form_errors.html" %}
+                <input name="context" type="hidden" value="{{context}}">
+                <input name="brother" type="hidden" value="{{brother}}">
+                <input name="subject" type="hidden" value="{{i.cri_seq.cri_subj}}">
+                <input name="content" type="hidden" value="{{i.cri_seq.cri_content}}">
+                <input name="keyword" type="hidden" value="{{i.cri_sum_keyword}}">
+                <input name="abst" type="hidden" value="{{i.cri_sum_abst}}">
+                <input name="law" type="hidden" value="{{i.ref_law}}">
+
               <div class="row justify-content-between">
-                <div>
-                  
+                <div class="row">
                   <span class="col-1 bg-danger text-white" style="font-weight:bold; border-radius: 2px">형사</span>
-                  <span class="m-0 h6">{{ i.cri_subj }}</span>
+                  <button class="col-11" type="submit" style="font-size:18px">{{ i.cri_subj }}</button>
                 </div>
                 <div>
                   <a href="#" data-toggle="tooltip" data-placement="bottom" class="col align-self-end" title="{{ i.cri_sum_abst }}">주문</a>
@@ -56,6 +66,7 @@
               <p style="font-weight:bold; margin:0 0 15px 0; color : rgb(57, 95, 223);">{{ i.cri_subj }}</p>
               <p style="max-height: 60px; overflow:hidden; margin:15px">{{ i.cri_sum_content }}</p>
               <p>15 응답</p>
+              </form>
             </div>
             <hr>
           </div>

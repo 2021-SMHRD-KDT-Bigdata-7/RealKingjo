@@ -17,7 +17,6 @@ def index(request):
         i['description'] = re.sub('(<([^>]+)>)', '', i['description'])
         keyname.append(i['title'])
         keyfile.append(i)
-    
     content = {"mainfile":keyfile[0],'keyfile':keyfile,'keyname':keyname,'keyword':keyword}
     return render(request, 'MainBoard/keyword_form.html',content)
 

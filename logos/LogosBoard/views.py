@@ -2,6 +2,7 @@ from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 
 
+
 from nltk.corpus import stopwords
 
 import requests
@@ -12,6 +13,7 @@ from .models import TCriminal
 from .models import TCriminalSummary
 from .models import TLaw
 from .models import SYNONYM
+from .forms import lawform
 from django.shortcuts import render
 
 
@@ -69,8 +71,22 @@ def view_p(request):
     """
     pybo 내용 출력
     """
-    context = {}
-    return render(request, 'LogosBoard/logos_View.html', context)
+    form = lawform()
+    if request.method == 'POST':
+        form = lawform(request.POST)
+        context = form.data['context'].replace("<br>",'\n')
+        brother = form.data['brother'].replace("'","").replace('[',"").replace(']',"").split(',')
+        content = form.data['content'].replace("<br>",'\n')
+        subject = form.data['subject'].replace("<br>",'\n')
+        keyword = form.data['keyword'].replace("<br>",'\n')
+        abst = form.data['abst'].replace("<br>",'\n')
+        law = form.data['law'].replace("<br>",'\n')
+
+        #Summary = TCriminalSummary.objects.get(cri_seq=i)
+        contents = {'context':context,'brother':brother,'subject':subject,'content':content,'keyword':keyword,'abst':abst,'law':law}
+        
+    return render(request, 'LogosBoard/logos_View.html', contents)
+
 
 def input(request):
     """
