@@ -25,15 +25,7 @@ class TCivil(models.Model):
         db_table = 't_civil'
 
 
-class TCriminal(models.Model):
-    cri_seq = models.AutoField(primary_key=True)
-    cri_prenum = models.CharField(max_length=200)
-    cri_content = models.TextField()
-    cri_subj = models.CharField(max_length=200)
 
-    class Meta:
-        
-        db_table = 't_criminal'
 
 
 class TFamily(models.Model):
@@ -85,6 +77,16 @@ class Synonym(models.Model):
     class Meta:
         managed = False
         db_table = 'logosboard_synonym'
+        
+class TCriminal(models.Model):
+    cri_seq = models.AutoField(primary_key=True)
+    cri_prenum = models.CharField(max_length=200)
+    cri_content = models.TextField()
+    cri_subj = models.CharField(max_length=200)
+
+    class Meta:
+        
+        db_table = 't_criminal'
         
 class TCriminalSummary(models.Model):
     cri_seq = models.OneToOneField(TCriminal, models.DO_NOTHING, db_column='cri_seq', primary_key=True)

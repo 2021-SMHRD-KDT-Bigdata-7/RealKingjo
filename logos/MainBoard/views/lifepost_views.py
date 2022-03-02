@@ -16,19 +16,13 @@ def index(request, category_name='life'):
     page = request.GET.get('page', '1')  # 페이지
     kw = request.GET.get('kw', '')  # 검색어
     so = request.GET.get('so', 'recent')  # 정렬기준
-    
     category_list = Category.objects.all()
     category = get_object_or_404(Category, name=category_name)
     question_list = life_Question.objects.order_by('-create_date')  & life_Question.objects.filter(category=category)
-        
     # 인가
     top_question_list = life_Question.objects.annotate(num_voter=Count('q_hit')).order_by('-create_date') & life_Question.objects.filter(category=category)
     side_question_list = Question.objects.order_by('-create_date')
-    
-
-
     # 검색
-    
     if kw:
         question_list = question_list.filter(
             Q(subject__icontains=kw) |  # 제목검색
@@ -36,12 +30,9 @@ def index(request, category_name='life'):
             Q(author__username__icontains=kw)  # 질문 글쓴이검색
             
         ).distinct()
-    
     # 페이징처리
     paginator = Paginator(question_list, 5)  # 페이지당 5개씩 보여주기
     page_obj = paginator.get_page(page)
-
-    
     context = {'question_list': page_obj, 'page': page, 'kw': kw, 'so': so, 'category_list': category_list, 'category': category, 'top_paginator':top_question_list[0:3],'side_question_list':side_question_list[0:5]}
     return render(request, 'MainBoard/lifepost_list.html', context)
  
